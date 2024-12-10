@@ -369,8 +369,8 @@
                 <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu">
             </div>
             <div class="header-buttons">
-                <a href="#" class="btn btn-outline">Se connecter</a>
-                <a href="#" class="btn btn-primary">S'inscrire</a>
+                <a href="connexion.html" class="btn btn-outline">Se connecter</a>
+                <a href="inscription.html" class="btn btn-primary">S'inscrire</a>
             </div>
         </div>
     </header>
@@ -379,24 +379,24 @@
         <div class="hero-content">
             <h1>Bienvenue sur PartyNextDoor</h1>
             <p>ton guide ultime pour toutes les soirées et festivals en France!</p>
-            <a href="#" class="cta-button">EN SAVOIR PLUS</a>
+            <a href="#events" class="cta-button" id="learn-more">EN SAVOIR PLUS</a>
             <div class="app-preview">
                 <img src="image/phone.webp" alt="PartyNextDoor App" style="background: #86858544; padding: 20px;">
             </div>
             <div class="store-buttons">
-                <a href="#" class="store-link">App Store</a>
-                <a href="#" class="store-link">Play Store</a>
+                <a href="https://www.apple.com/app-store/" class="store-link">App Store</https:>
+                <a href="https://play.google.com/store" class="store-link">Play Store</a>
             </div>
         </div>
     </section>
 
-    <section class="events">
+    <section class="events" id="events">
         <div class="events-header">
             <h2>ÉVÉNEMENTS À LA UNE</h2>
             <div class="location">PARIS</div>
         </div>
         <div class="events-grid">
-            <article class="event-card">
+            <a href="connexion.html" class="event-card">
                 <img src="image/event1.webp" alt="Événement 1" class="event-image">
                 <div class="event-content">
                     <h3 class="event-title">City of Gods</h3>
@@ -410,9 +410,9 @@
                         <span class="tag">TECHNO</span>
                     </div>
                 </div>
-            </article>
+            </a>
 
-            <article class="event-card">
+            <a href="connexion.html" class="event-card">
                 <img src="image/event2.webp" alt="Événement 2" class="event-image">
                 <div class="event-content">
                     <h3 class="event-title">Electric Nights</h3>
@@ -426,9 +426,9 @@
                         <span class="tag">DANCE</span>
                     </div>
                 </div>
-            </article>
+            </a>
 
-            <article class="event-card">
+            <a href="connexion.html" class="event-card">
                 <img src="image/event3.jpg" alt="Événement 3" class="event-image">
                 <div class="event-content">
                     <h3 class="event-title">Nuit Sonore</h3>
@@ -442,25 +442,7 @@
                         <span class="tag">UNDERGROUND</span>
                     </div>
                 </div>
-            </article>
-
-            <!--Cookies=--->
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="css/cookies.css">
-                <title>Cookie Consent</title>
-            
-            </head>
-            <body>
-                <div id="cookie-popup" class="cookie-popup">
-                    <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. En utilisant notre site, vous acceptez les cookies.</p>
-                    <button id="accept-cookies">Accepter</button>
-                    <button id="decline-cookies">Refuser</button>
-                </div>
-            <script src="script/cookies.js"></script>
-            </body>
-
+            </a>
         </div>
     </section>
 
@@ -471,8 +453,6 @@
                     <h4>À PROPOS</h4>
                     <ul>
                         <li><a href="#">Notre Histoire</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Carrières</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
@@ -480,10 +460,10 @@
                 <div class="footer-section">
                     <h4>DÉCOUVRIR</h4>
                     <ul>
-                        <li><a href="#">Événements</a></li>
-                        <li><a href="#">Artistes</a></li>
-                        <li><a href="#">Lieux</a></li>
-                        <li><a href="#">Festivals</a></li>
+                        <li><a href="#">CONCERTS</a></li>
+                        <li><a href="#">SOIRÉES</a></li>
+                        <li><a href="#">FESTIVALS</a></li>
+                        
                     </ul>
                 </div>
 
@@ -492,8 +472,6 @@
                     <ul>
                         <li><a href="faq.html">FAQ</a></li>
                         <li><a href="#">Support</a></li>
-                        <li><a href="#">Billetterie</a></li>
-                        <li><a href="#">Organisateurs</a></li>
                     </ul>
                 </div>
 
@@ -513,5 +491,16 @@
             </div>
         </div>
     </footer>
+
+
+    <script>
+        document.getElementById('learn-more').addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventsSection = document.getElementById('events');
+            eventsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
 </body>
+
+
 </html>
