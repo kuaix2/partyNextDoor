@@ -1,5 +1,4 @@
 <?php
-// Database connection
 $host = 'localhost';
 $dbname = 'bddpartynextdoor';
 $username = 'root';
@@ -11,21 +10,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize content variable for the entire document
-$content = '';
-
-// Fetch the existing content from the database
-$sql = "SELECT content FROM content WHERE id = 1";  // Assuming you're fetching content with ID = 1
-$result = $conn->query($sql);
-
-// Default empty content if no data found
-if ($result->num_rows > 0) {
-    // Fetch the content from the database
-    $row = $result->fetch_assoc();
-    $content = $row['content'];
-}
-
+// Fetch the content for "Mentions légales"
+$page_name = 'Politique de confidentialité';
+$sql = "SELECT content FROM multiple_content WHERE page_name = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $page_name);
+$stmt->execute();
+$stmt->bind_result($content);
+$stmt->fetch();
+$stmt->close();
 $conn->close();
+
+// Default to a placeholder if no content found
+if (empty($content)) {
+    $content = "<p>Content not available.</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +32,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General Conditions</title>
+    <title>Politique de confidentialité</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/mentions-legales.css">
@@ -43,10 +42,11 @@ $conn->close();
     <header class="header">
         <h1>Politique de confidentialité</h1>
     </header>
-
     <main class="content">
-        <?php echo $content; ?>  <!-- Display content from the database -->
+        <?php echo $content; ?>
     </main>
+</body>
+</html>
 
     <footer class="footer">
         <div class="footer-content">
@@ -97,6 +97,5 @@ $conn->close();
             </div>
         </div>
     </footer>
-
 </body>
 </html>
