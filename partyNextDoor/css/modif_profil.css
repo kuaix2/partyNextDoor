@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('image/back.png');
+    font-family: 'Bebas Neue', sans-serif;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e); /* Dégradé rose-jaune */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.profile-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Légère transparence */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-picture img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f48fb1; /* Bordure rose stylée */
+}
+
+#change-photo {
+    margin-top: 10px;
+}
+
+.profile-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.profile-form input, .profile-form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #fff5f8; /* Légère teinte rosée pour les champs */
+}
+
+.profile-form button {
+    padding: 10px;
+    background-color: #ff9a9e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-form button:hover {
+    background-color: #f48fb1; /* Variation rose au survol */
+}
+
+.profile-options {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.option-button {
+    padding: 10px 20px;
+    background-color: #fad0c4;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 48%;
+}
+
+.option-button:hover {
+    background-color: #ff9a9e; /* Effet au survol avec dégradé */
+}
+
+

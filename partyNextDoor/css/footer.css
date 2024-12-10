@@ -1,0 +1,62 @@
+.footer {
+    background-color: #fff;
+    padding: 80px 24px 40px;
+    border-top: 1px solid #eee;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left; /* Aligne tout à gauche */
+}
+
+.footer-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-section h4 {
+    color: #000;
+    margin-bottom: 24px;
+    font-weight: 600;
+    text-align: left; /* Aligne les titres à gauche */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding-left: 0; /* Enlève l'indentation par défaut */
+    text-align: left; /* Aligne les listes à gauche */
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section ul a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 14px;
+    display: block; /* Permet une meilleure organisation verticale */
+}
+
+.footer-section ul a:hover {
+    color: #000;
+}
+
+.copyright {
+    text-align: left; /* Texte du copyright aligné à gauche */
+    color: #666;
+    font-size: 14px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-nav {
+        grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+    }
+}

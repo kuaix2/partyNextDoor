@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'inscription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/inscription.css">
+    
+
+<body>
+    <form action="php/inscription.php" method="post">
+        <div class="form-container">
+            <h1><strong><em>PARTYNEXTDOOR</em></strong></h1>
+            <h2><strong>FORMULAIRE D'INSCRIPTION</strong></h2>
+    
+            <!-- Form Group for Username -->
+            <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" name="nom_utilisateur" required>
+            </div>
+    
+            <!-- Form Group for Email -->
+            <div class="form-group">
+                <label>Adresse mail</label>
+                <input type="email" name="email" required>
+            </div>
+    
+            <!-- Form Group for Password -->
+            <div class="form-group">
+                <label>Mot de Passe</label>
+                <input type="password" name="mot_de_passe" required>
+            </div>
+    
+            <!-- Submit Button -->
+            <button type="submit" class="button-inscription">S'inscrire</button>
+        </div>
+    </form>
+    
+</body>
+
+</html>

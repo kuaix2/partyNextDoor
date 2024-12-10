@@ -1,0 +1,118 @@
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.logo img {
+    height: 60px;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    color: #000;
+    font-size: 14px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #000;
+    color: #fff;
+    border: none;
+}
+
+.btn-outline {
+    border: 1px solid #000;
+    color: #000;
+    background: transparent;
+}
+
+.header-buttons .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.header-buttons .btn-dropdown {
+    background-color: #ff6f00;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.header-buttons .btn-dropdown:hover {
+    background-color: #ff9e6a;
+}
+
+/* Style for the dropdown menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+    color: #ff6f00;
+}
+
+/* Show the dropdown content when active */
+.dropdown.active .dropdown-content {
+    display: block;
+}

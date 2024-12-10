@@ -1,0 +1,20 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('background.jpg'); /* Chemin vers l'image */
+    background-size: cover; /* Pour couvrir tout l'écran */
+    background-position: center; /* Pour centrer l'image */
+    background-repeat: no-repeat; /* Pour ne pas répéter l'image */
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8); /* Ajoute un fond blanc avec un peu de transparence pour le formulaire */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+

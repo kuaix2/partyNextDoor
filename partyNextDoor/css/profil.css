@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, #ff69b4, #ff9999, #ffff00);
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+nav a {
+    color: black;
+    text-decoration: none;
+    margin-left: 20px;
+    position: relative;
+    right: 90px;
+   
+}
+.logo img {
+    height: 80px;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+.main-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.profile-section, .tickets-section {
+    padding: 20px;
+}
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.settings-toggle {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 29px;
+    cursor: pointer;
+    
+}
+.logo img {
+    height: 80px;
+    margin-right: 20px;
+    margin-top: 40px;
+    
+}
+.button {
+    background-color:#333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #555;
+}
+.ticket-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.ticket-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+.favorites {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.favorite-item {
+    text-align: center;
+}
+.favorite-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+/* Settings menu styles */
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+.settings-overlay.active {
+    transform: translateX(0);
+}
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+.user-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.menu-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.menu-item:hover {
+    background-color: #333;
+}
+.contact-info {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    color: #666;
+    font-size: 14px;
+}

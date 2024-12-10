@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/modif_profil.css">
+    
+
+</head>
+
+<body>
+    <div class="profile-container">
+        <h1>Mon Profil</h1>
+        <div class="profile-section">
+            <!-- Photo de profil -->
+            <div class="profile-picture">
+                <img src="image/download.jpg" alt="Photo de profil" id="profile-img">
+                <input type="file" id="change-photo" accept="image/*">
+            </div>
+
+            <!-- Informations utilisateur -->
+            <form action="#" method="POST" class="profile-form">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" value="Utilisateur123" required>
+
+                <label for="lastname">Nom</label>
+                <input type="text" id="lastname" name="lastname" value="Chaptini">
+
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" name="firstname" value="Camille">
+
+                <label for="email">Adresse email</label>
+                <input type="email" id="email" name="email" value="exemple@mail.com" required>
+
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Renseignez votre bio..."></textarea>
+
+                <button type="submit">Enregistrer les modifications</button>
+            </form>
+        </div>
+
+        <!-- Rubriques supplémentaires -->
+        <div class="profile-options">
+            <button class="option-button">Mes billets</button>
+            <button class="option-button">Favoris</button>
+        </div>
+    </div>
+</body>
+</html>
+
+

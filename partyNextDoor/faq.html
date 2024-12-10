@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - PartyNextDoor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/faq.css">
+</head>
+
+<body>
+    <header>
+        <h1>PartyNextDoor - FAQ</h1>
+        <p>Trouvez vos soirées et achetez ou revendez vos billets en toute simplicité !</p>
+    </header>
+    
+    <section class="faq">
+        <h2>Questions Fréquentes</h2>
+        
+        <div class="faq-item">
+            <button class="faq-question">Comment acheter un billet sur PartyNextDoor ?</button>
+            <div class="faq-answer">
+                <p>Pour acheter un billet, parcourez notre catalogue de soirées, choisissez l'événement qui vous intéresse, et cliquez sur "Acheter un billet". Vous serez redirigé vers une page sécurisée pour effectuer votre paiement.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Puis-je revendre mon billet si je ne peux plus assister à la soirée ?</button>
+            <div class="faq-answer">
+                <p>Oui, si vous ne pouvez plus assister à un événement, vous pouvez revendre votre billet en vous connectant à votre compte et en accédant à la section "Mes billets". Cliquez sur "Revendre" et suivez les instructions.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Est-il sûr d'acheter des billets sur PartyNextDoor ?</button>
+            <div class="faq-answer">
+                <p>Absolument ! Nous utilisons des méthodes de paiement sécurisées pour garantir la sécurité de vos informations. De plus, chaque billet vendu sur notre plateforme est vérifié pour assurer sa validité.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Comment annuler un achat de billet ?</button>
+            <div class="faq-answer">
+                <p>Une fois l'achat confirmé, les billets ne sont pas remboursables. Cependant, vous pouvez toujours revendre votre billet sur notre plateforme si vous ne pouvez pas assister à l'événement.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Puis-je transférer mon billet à un ami ?</button>
+            <div class="faq-answer">
+                <p>Oui, vous pouvez transférer votre billet en fournissant l'email de votre ami dans la section "Transférer un billet" de votre compte. Notez que les billets ne peuvent être transférés qu'une seule fois.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                button.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
