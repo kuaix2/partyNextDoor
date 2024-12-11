@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.dashboard {
+    padding: 20px;
+    background-color: #fff;
+    margin: 50px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+.dashboard h1 {
+    text-align: center;
+    color: #333;
+}
+.logout-btn, .editor-btn {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+}
+.logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+.logout-btn:hover {
+    background-color: #ff3333;
+}
+.editor-btn {
+    background-color: white;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+}
+.editor-btn:hover {
+    background-color: #f1f1f1;
+}
