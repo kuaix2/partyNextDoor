@@ -1,4 +1,16 @@
 <?php
+session_start(); // Démarre la session
+
+// Vérifier si l'utilisateur est connecté et rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: admin_login.php");
+    exit();
+}
+
+// L'utilisateur est connecté, donc on continue d'afficher la page
+?>
+
+<?php
 $host = 'localhost';
 $dbname = 'bddpartynextdoor';
 $username = 'root';
@@ -7,12 +19,12 @@ $password = '';
 $conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Échec de la connexion : " . $conn->connect_error);
 }
 
 $contents = [];
 
-// Handle form submission to update content for multiple pages
+// Gérer la soumission du formulaire pour mettre à jour le contenu de plusieurs pages
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($_POST as $page_id => $updated_content) {
         $sql = "UPDATE multiple_content SET content = ? WHERE page_id = ?";
@@ -20,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("si", $updated_content, $page_id);
 
         if (!$stmt->execute()) {
-            die("Error updating content for page $page_id: " . $stmt->error);
+            die("Erreur lors de la mise à jour du contenu de la page $page_id: " . $stmt->error);
         }
 
         $stmt->close();
     }
-    $message = "Content updated successfully!";
+    $message = "Contenu mis à jour avec succès !";
 }
 
-// Fetch existing content for all pages
+// Récupérer le contenu existant pour toutes les pages
 $sql = "SELECT page_id, page_name, content FROM multiple_content";
 $result = $conn->query($sql);
 
@@ -40,18 +52,18 @@ if ($result->num_rows > 0) {
         ];
     }
 } else {
-    die("No pages found in the database.");
+    die("Aucune page trouvée dans la base de données.");
 }
 
 $conn->close();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Multiple Pages</title>
+    <title>Modifier Plusieurs Pages</title>
     <script src="https://cdn.tiny.cloud/1/pn2zh1v0rk8aaco8a825efyux308vo1pt0rmkw3f9i1g5z0i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -71,14 +83,14 @@ $conn->close();
 </head>
 <body>
 
-    <h1>Edit Multiple Pages</h1>
+    <h1>Modifier Plusieurs Pages</h1>
 
-    <!-- Display success message if content was updated -->
+    <!-- Afficher le message de succès si le contenu a été mis à jour -->
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
     <?php endif; ?>
 
-    <!-- Form to edit multiple pages -->
+    <!-- Formulaire pour modifier plusieurs pages -->
     <form action="" method="POST">
         <?php foreach ($contents as $page_id => $data): ?>
             <h2><?php echo htmlspecialchars($data['name']); ?></h2>
@@ -86,7 +98,11 @@ $conn->close();
                 <?php echo htmlspecialchars($data['content']); ?>
             </textarea>
         <?php endforeach; ?>
-        <button type="submit">Save All Changes</button>
+        <button type="submit">Enregistrer toutes les modifications</button>
+    </form>
+
+    <form action="" method="POST">
+        <button type="button" onclick="window.location.href='admin_page.php';">Retour à la page d'administration</button>
     </form>
 
 </body>

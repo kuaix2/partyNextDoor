@@ -77,9 +77,17 @@ $result = $conn->query($sql);
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                // Check if the event image exists and is accessible
+                $imagePath = 'uploads/' . $row['event_image'];
+                if (!empty($row['event_image']) && file_exists($imagePath)) {
+                    $imageSrc = $imagePath;
+                } else {
+                    $imageSrc = 'uploads/placeholder.jpg'; // Fallback image if the event image is not available
+                }
+
                 // Display each event dynamically
                 echo '<a href="test.php" class="event-card">';
-                echo '<img src="uploads/<?php echo' . $row['event_image'] . '" alt="' . $row['event_name'] . '" class="event-image">';
+                echo '<img src="' . htmlspecialchars($imageSrc) . '" alt="' . htmlspecialchars($row['event_name']) . '" class="event-image">';
                 echo '<div class="event-content">';
                 echo '<h3 class="event-title">' . htmlspecialchars($row['event_name']) . '</h3>';
                 echo '<p class="event-venue">' . htmlspecialchars($row['event_venue']) . '</p>';
