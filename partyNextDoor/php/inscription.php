@@ -38,11 +38,16 @@ if (isset($_POST['nom_utilisateur']) && isset($_POST['email']) && isset($_POST['
     } else {
         echo "Erreur: " . $conn->error;
     }
-} else {
-    echo "Tous les champs sont requis.";
-}
+    } else {
+        echo "Tous les champs sont requis.";
+    }
 
 // Close the connection
 $conn->close();
 
 ?>
+
+    <!-- Bouton pour retourner à acu.html -->
+    <form action="../acu.html">
+        <button type="submit">Retour à la page d'accueil</button>
+    </form>
