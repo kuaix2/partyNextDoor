@@ -14,10 +14,10 @@ try {
 
 // Obtenir l'ID de l'utilisateur (exemple avec une session utilisateur)
 session_start();
-$userId = $_SESSION['user_id'] ?? 16; // Remplacez par la gestion de session appropriée
+$userId = $_SESSION['user_id'] ?? 20; // Remplacez par la gestion de session appropriée
 
 // Requête pour récupérer les informations de l'utilisateur
-$sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom FROM utilisateur WHERE id = :userId";
+$sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
@@ -72,8 +72,12 @@ if (!$user) {
                     <label>PRÉNOM</label>
                     <p id="prenom"><?php echo htmlspecialchars($user['prenom']); ?></p>
                 </div>
+                <div class="info-group">
+                        <label>BIO</label>
+                        <p id="bio"><?php echo htmlspecialchars($user['bio']); ?></p>
+                    </div>
             </div>
-            <a href="modif_profil.html" class="button" onclick="redirectToModifyProfile()">MODIFIER MON PROFIL</a>
+            <a href="modif_profil.php" class="button" onclick="redirectToModifyProfile()">MODIFIER MON PROFIL</a>
         </section>
 
             <section class="tickets-section card">
@@ -167,4 +171,7 @@ if (!$user) {
     </script>
 </body>
 </html>
+
+
+
 
