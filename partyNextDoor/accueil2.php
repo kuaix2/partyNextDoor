@@ -1,3 +1,31 @@
+<?php
+// Connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bddpartynextdoor";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Récupérer les événements depuis la base de données
+$sql = "SELECT * FROM events ORDER BY event_date DESC LIMIT 3"; // Limité à 3 événements pour afficher dans la section
+$result = $conn->query($sql);
+
+$events = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $events[] = $row;
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -39,6 +67,8 @@
         </ul>
     </div>
 
+
+
     <section class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur PartyNextDoor</h1>
@@ -56,53 +86,28 @@
             <a href="event.html" class="btn-voir-plus">Voir plus</a>
         </div>
         <div class="events-grid">
-            <a href="page-evenement.html" class="event-card">
-                <img src="image/event1.webp" alt="Événement 1" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">City of Gods</h3>
-                    <p class="event-venue">Le Petit Bain, Paris</p>
-                    <div class="event-details">
-                        <span>ven. 16 jan | 23:30</span>
-                        <span>25€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">FESTIVALS</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card">
-                <img src="image/event2.webp" alt="Événement 2" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Electric Nights</h3>
-                    <p class="event-venue">La Machine du Moulin Rouge</p>
-                    <div class="event-details">
-                        <span>sam. 24 jan | 22:00</span>
-                        <span>30€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card">
-                <img src="image/event3.jpg" alt="Événement 3" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Nuit Sonore</h3>
-                    <p class="event-venue">Rex Club</p>
-                    <div class="event-details">
-                        <span>sam. 1 déc | 23:00</span>
-                        <span>20€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
+            <?php if (!empty($events)): ?>
+                <?php foreach ($events as $event): ?>
+                    <a href="page-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
+                        <?php if ($event['event_image']): ?>
+                            <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                            <?php endif; ?>
+                        <div class="event-content">
+                            <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
+                            <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
+                            <div class="event-details">
+                                <span><?php echo date("D d M | H:i", strtotime($event['event_date'])); ?></span>
+                                <span><?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag"><?php echo htmlspecialchars($event['event_tags']); ?></span>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun événement disponible.</p>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -170,7 +175,6 @@
         }
     </script>
 </body>
-
 
 </html>
 
