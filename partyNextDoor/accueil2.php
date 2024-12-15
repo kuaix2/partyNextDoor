@@ -90,7 +90,7 @@ $conn->close();
                 <?php foreach ($events as $event): ?>
                     <a href="page-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
                         <?php if ($event['event_image']): ?>
-                            <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                            <img src="php/<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
                             <?php endif; ?>
                         <div class="event-content">
                             <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>

@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_name'])) {
     // Nettoyer les entrées utilisateur
     $eventName = $conn->real_escape_string($_POST['event_name']);
-    $eventAdress = $conn->real_escape_string($_POST['event_adress']);
+    $eventAdresse = $conn->real_escape_string($_POST['event_adresse']);
     $eventDate = $conn->real_escape_string($_POST['event_date']);
     $eventPrice = $conn->real_escape_string($_POST['event_price']);
     $eventTags = $conn->real_escape_string($_POST['event_tags']);
@@ -49,8 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_name'])) {
     }
 
     // Insérer l'événement dans la base de données
-    $sql = "INSERT INTO events (event_name, event_adress, event_date, event_price, event_tags, event_description, event_image, places_available) 
-            VALUES ('$eventName', '$eventAdress', '$eventDate', '$eventPrice', '$eventTags', '$eventDescription', '$filePath', '$eventPlaces')";
+    $sql = "INSERT INTO events (event_name, event_adresse, event_date, event_price, event_tags, event_description, event_image, places_available) 
+            VALUES ('$eventName', '$eventAdresse', '$eventDate', '$eventPrice', '$eventTags', '$eventDescription', '$filePath', '$eventPlaces')";
+
 
     if ($conn->query($sql) === TRUE) {
         $message = "Événement ajouté avec succès !";
@@ -162,7 +163,7 @@ $conn->close();
         <input type="text" id="eventName" name="event_name" required>
 
         <label for="eventAdress">Lieu de l'événement :</label>
-        <input type="text" id="eventAdress" name="event_adress" required>
+        <input type="text" id="eventAdress" name="event_adresse" required>
 
         <label for="eventDate">Date de l'événement :</label>
         <input type="date" id="eventDate" name="event_date" required>
@@ -208,7 +209,7 @@ $conn->close();
                 <?php endif; ?>
                 <div class="event-content">
                   <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
-                  <p class="event-venue"><?php echo htmlspecialchars($event['event_adress']); ?></p>
+                  <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
                   <div class="event-details">
                     <span><?php echo htmlspecialchars($event['event_date']); ?></span>
                     <span><?php echo htmlspecialchars($event['event_price']); ?>€</span>

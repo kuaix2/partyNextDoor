@@ -100,7 +100,7 @@ $conn->close();
                 </div>
 
                 <?php if ($event['event_image']): ?>
-                    <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                    <img src="php/<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
                 <?php endif; ?>
             </div>
         </section>
