@@ -1,4 +1,3 @@
-/* Reset & Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +11,7 @@ body {
     line-height: 1.5;
 }
 
-/* Gradient Background */
+
 .gradient-shape {
     position: absolute;
     top: 0;
@@ -65,7 +64,7 @@ body {
     height: 60px;
 }
 
-/* Event Detail Section */
+
 .event-detail {
     padding: 160px 24px 80px;
     max-width: 1200px;
@@ -104,7 +103,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* Event Content Layout */
+
 .event-content {
     display: flex;
     justify-content: space-between;
@@ -116,11 +115,11 @@ body {
 }
 
 .event-image {
-    width: 500px; /* Set width of the image */
-    height: 500px; /* Set height of the image */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-    border-radius: 12px; /* Optional: Adds rounded corners to the image */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow effect around the image */
+    width: 500px; 
+    height: 500px;
+    object-fit: cover; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 

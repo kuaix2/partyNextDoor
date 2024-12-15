@@ -89,7 +89,7 @@
     background-color: #ff9e6a;
 }
 
-/* Style for the dropdown menu */
+/* Style pour menu burger */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -112,7 +112,7 @@
     color: #ff6f00;
 }
 
-/* Show the dropdown content when active */
+
 .dropdown.active .dropdown-content {
     display: block;
 }

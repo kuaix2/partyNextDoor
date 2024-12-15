@@ -1,4 +1,4 @@
-/* Cookie pop-up container */
+
 .cookie-popup {
     position: fixed;
     bottom: 20px;
@@ -15,14 +15,14 @@
     z-index: 1000;
 }
 
-/* Cookie pop-up text */
+
 .cookie-popup p {
     margin: 0 0 15px;
     font-size: 16px;
     color: #333;
 }
 
-/* Buttons in the cookie pop-up */
+
 .cookie-popup button {
     padding: 10px 20px;
     font-size: 16px;

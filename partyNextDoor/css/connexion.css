@@ -36,7 +36,6 @@ body {
   height: 100vh;
 }
 
-/* Container for the form */
 .form-container {
   background-color: white;
   padding: 40px;
@@ -46,7 +45,6 @@ body {
   width: 100%;
 }
 
-/* Form header */
 h1 {
   text-align: center;
   color: #333;
@@ -54,7 +52,7 @@ h1 {
   font-size: 28px;
 }
 
-/* Form groups */
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -82,7 +80,7 @@ input[type="password"]:focus {
   outline: none;
 }
 
-/* Forgot password link */
+
 .forgot-password {
   display: block;
   text-align: right;
@@ -99,7 +97,7 @@ input[type="password"]:focus {
   text-decoration: underline;
 }
 
-/* Submit button */
+
 .submit-button {
   width: 100%;
   padding: 10px;

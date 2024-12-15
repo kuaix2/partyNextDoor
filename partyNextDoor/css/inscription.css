@@ -10,7 +10,7 @@ body {
     height: 100vh;
 }
 
-/* Container for the form */
+/* Pour le form */
 .form-container {
     background-color: white;
     padding: 40px;
@@ -36,7 +36,7 @@ h2 {
     font-size: 22px;
 }
 
-/* Form groups */
+/* Form groupes */
 .form-group {
     margin-bottom: 20px;
 }
@@ -66,7 +66,7 @@ input[type="password"]:focus {
     outline: none;
 }
 
-/* Submit button */
+/* Bouton */
 .button-inscription {
     width: 100%;
     padding: 10px;

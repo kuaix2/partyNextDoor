@@ -90,7 +90,7 @@ $result = $conn->query($sql);
                 echo '<img src="' . htmlspecialchars($imageSrc) . '" alt="' . htmlspecialchars($row['event_name']) . '" class="event-image">';
                 echo '<div class="event-content">';
                 echo '<h3 class="event-title">' . htmlspecialchars($row['event_name']) . '</h3>';
-                echo '<p class="event-venue">' . htmlspecialchars($row['event_venue']) . '</p>';
+                echo '<p class="event-venue">' . htmlspecialchars($row['event_adress']) . '</p>';
                 echo '<div class="event-details">';
                 echo '<span>' . htmlspecialchars($row['event_date']) . '</span>';
                 echo '<span>' . htmlspecialchars($row['event_price']) . '€</span>';
