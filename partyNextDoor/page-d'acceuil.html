@@ -194,6 +194,88 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
+
+        .events {
+            padding: 80px 24px;
+            background-color: #fff;
+        }
+        
+        .events-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .events-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .event-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        
+        .event-content {
+            padding: 24px;
+        }
+        
+        .event-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #000;
+        }
+        
+        .event-venue {
+            color: #666;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        
+        .event-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #000;
+        }
+        
+        .event-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #f5f5f5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+        }
+        
         /* Deuxième section */
         .section-2 {
             height: 100vh;
@@ -327,6 +409,63 @@
     </div>
 
     </div> 
+
+
+    <section class="events" id="events">
+        <div class="events-header">
+            <h2>ÉVÉNEMENTS À LA UNE</h2>
+            <div class="location">PARIS</div>
+        </div>
+        <div class="events-grid">
+            <a href="connexion.php" class="event-card">
+                <img src="image/event1.webp" alt="Événement 1" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">City of Gods</h3>
+                    <p class="event-venue">Le Petit Bain, Paris</p>
+                    <div class="event-details">
+                        <span>ven. 16 jan | 23:30</span>
+                        <span>25€</span>
+                    </div>
+                    <div class="event-tags">
+                        <span class="tag">FESTIVALS</span>
+                        
+                    </div>
+                </div>
+            </a>
+
+            <a href="connexion.php" class="event-card">
+                <img src="image/event2.webp" alt="Événement 2" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Electric Nights</h3>
+                    <p class="event-venue">La Machine du Moulin Rouge</p>
+                    <div class="event-details">
+                        <span>sam. 24 jan | 22:00</span>
+                        <span>30€</span>
+                    </div>
+                    <div class="event-tags">
+                        <span class="tag">SOIRÉES</span>
+                        
+                    </div>
+                </div>
+            </a>
+
+            <a href="connexion.php" class="event-card">
+                <img src="image/event3.jpg" alt="Événement 3" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Nuit Sonore</h3>
+                    <p class="event-venue">Rex Club</p>
+                    <div class="event-details">
+                        <span>sam. 1 déc | 23:00</span>
+                        <span>20€</span>
+                    </div>
+                    <div class="event-tags">
+                        <span class="tag">SOIRÉES</span>
+                        
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
      <!-- Deuxième section -->
     <div class="section-2">
         <div class="container">
