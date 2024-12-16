@@ -1,5 +1,4 @@
 <?php
-// Connexion à la base de données
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -62,101 +61,28 @@ $conn->close();
             <button class="filter-button" data-filter="concert">Concerts</button>
         </div>
         <div class="events-grid">
-            <?php foreach ($events as $event): ?>
-<a href="details.php?id=<?php echo htmlspecialchars($event['id']); ?>" class="event-card" data-type="<?php echo htmlspecialchars($event['event_tags']); ?>">
-    <img src="<?php echo htmlspecialchars($event['event_image'] ?: 'image/default.jpg'); ?>" alt="Image de l'événement" class="event-image">
-    <div class="event-content">
-        <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
-        <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
-        <div class="event-details">
-            <span><?php echo htmlspecialchars(date('D. d M | H:i', strtotime($event['event_date']))); ?></span>
-            <span><?php echo htmlspecialchars($event['event_price']); ?>€</span>
-        </div>
-        <div class="event-tags">
-            <span class="tag"><?php echo htmlspecialchars(strtoupper($event['event_tags'])); ?></span>
-        </div>
-    </div>
-</a>
-<?php endforeach; ?>
-
-
-            <a href="connexion.html" class="event-card" data-type="soiree">
-                <img src="image/event2.webp" alt="Événement 2" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Electric Nights</h3>
-                    <p class="event-venue">La Machine du Moulin Rouge</p>
-                    <div class="event-details">
-                        <span>sam. 24 jan | 22:00</span>
-                        <span>30€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card" data-type="soiree">
-                <img src="image/event3.jpg" alt="Événement 3" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Nuit Sonore</h3>
-                    <p class="event-venue">Rex Club</p>
-                    <div class="event-details">
-                        <span>sam. 1 déc | 23:00</span>
-                        <span>20€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card" data-type="concert">
-                <img src="image/event4.webp" alt="Événement 4" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Rock en Seine</h3>
-                    <p class="event-venue">Domaine National de Saint-Cloud</p>
-                    <div class="event-details">
-                        <span>23-25 août | 12:00</span>
-                        <span>69€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">CONCERTS</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card" data-type="festival">
-                <img src="image/event5.webp" alt="Événement 5" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Hellfest</h3>
-                    <p class="event-venue">Clisson</p>
-                    <div class="event-details">
-                        <span>20-23 juin | 10:00</span>
-                        <span>289€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">FESTIVALS</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.html" class="event-card" data-type="concert">
-                <img src="image/event6.jpg" alt="Événement 6" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Jazz à Vienne</h3>
-                    <p class="event-venue">Théâtre Antique de Vienne</p>
-                    <div class="event-details">
-                        <span>28 juin - 13 juillet | 20:30</span>
-                        <span>49€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">CONCERTS</span>
-                    </div>
-                </div>
-            </a>
+            <?php if (!empty($events)): ?>
+                <?php foreach ($events as $event): ?>
+                    <a href="page-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
+                        <?php if ($event['event_image']): ?>
+                            <img src="php/<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                            <?php endif; ?>
+                        <div class="event-content">
+                            <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
+                            <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
+                            <div class="event-details">
+                                <span><?php echo date("D d M | H:i", strtotime($event['event_date'])); ?></span>
+                                <span><?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag"><?php echo htmlspecialchars($event['event_tags']); ?></span>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun événement disponible.</p>
+            <?php endif; ?>
         </div>
     </section>
 
