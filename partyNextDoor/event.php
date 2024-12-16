@@ -67,7 +67,7 @@ $conn->close();
     <img src="<?php echo htmlspecialchars($event['event_image'] ?: 'image/default.jpg'); ?>" alt="Image de l'événement" class="event-image">
     <div class="event-content">
         <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
-        <p class="event-venue"><?php echo htmlspecialchars($event['event_venue']); ?></p>
+        <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
         <div class="event-details">
             <span><?php echo htmlspecialchars(date('D. d M | H:i', strtotime($event['event_date']))); ?></span>
             <span><?php echo htmlspecialchars($event['event_price']); ?>€</span>
