@@ -196,9 +196,14 @@
 
 
         .events {
-            padding: 80px 24px;
-            background-color: #fff;
-        }
+    padding: 80px 24px; /* Gère les marges internes */
+    display: flex; /* Exemple : Utilisez flexbox pour aligner vos éléments */
+    flex-direction: column; /* Organisez les éléments verticalement */
+    align-items: center; /* Centrez les éléments horizontalement */
+    gap: 24px; /* Ajoutez un espace entre les éléments */
+    text-align: center; /* Si les textes doivent être centrés */
+}
+
         
         .events-header {
             max-width: 1200px;
@@ -217,13 +222,18 @@
             gap: 24px;
         }
         
+        
+
         .event-card {
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #eee;
-        }
+    background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet relief */
+    width: 300px; /* Taille fixe pour les cartes */
+    text-align: center;
+}
+   
+
         
         .event-card:hover {
             transform: translateY(-4px);
@@ -268,13 +278,13 @@
         }
         
         .tag {
-            background: #f5f5f5;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #666;
-        }
+    background: #bfbfbf;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000000;
+}
         
         /* Deuxième section */
         .section-2 {
@@ -400,7 +410,7 @@
             <h1>PARTYNEXTDOOR</h1>
             <h2>TON GUIDE ULTIME</h2>
             <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
-            <button class="btn">Télécharge l'app</button>
+            <button class="btn">Voir plus d'évènements</button>
         </div>
         <video class="promo-video" autoplay muted loop>
             <source src="image/vidéo.mov" type="video/mp4">
