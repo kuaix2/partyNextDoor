@@ -1,7 +1,7 @@
 <?php
 // Connexion à la base de données
 $host = 'localhost'; // Remplacez par votre hôte
-$dbname = 'partynextdoor'; // Nom de votre base de données
+$dbname = 'bddpartynextdoor'; // Nom de votre base de données
 $username = 'root'; // Nom d'utilisateur MySQL
 $password = ''; // Mot de passe MySQL
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Récupération des événements depuis la base de données
-$sql = "SELECT * FROM events ORDER BY date ASC";
+$sql = "SELECT * FROM events ORDER BY date ASC Limit 3";
 $stmt = $pdo->query($sql);
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
