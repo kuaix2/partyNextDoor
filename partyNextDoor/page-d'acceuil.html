@@ -3,124 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartyNextDoor</title>
-    <!-- Importation des polices -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/organizer-evenement.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <title>PARTYNEXTDOOR - Événements de l'Organisateur</title>
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <header class="header">
-        <div class="header-content">
-            <a href="/" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu">
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="image/PND.png" alt="Logo PartyNextDoor">
             </div>
-            <div class="menu-burger">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-dropdown">
-                    <a href="#" class="menu-item">Mon profil</a>
-                    <a href="#" class="menu-item">Je suis organisateur</a>
-                    <a href="#" class="menu-item">Festivals</a>
-                    <a href="#" class="menu-item">Concerts</a>
-                    <a href="#" class="menu-item">Soirées</a>
-                    <a href="#" class="menu-item">Tous les évènements</a>
-                    <a href="#" class="menu-item">FAQ</a>
+            <div>
+                <a href="#festivals">FESTIVALS</a>
+                <a href="#concerts">CONCERTS</a>
+                <a href="#" class="button">JE SUIS ORGANISATEUR</a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="organizer-info">
+                <img src="https://via.placeholder.com/100" alt="Photo de l'organisateur" class="organizer-photo">
+                <div class="organizer-details">
+                    <h2>NOM DE L'ORGANISATEUR</h2>
+                    <p>Organisateur de soirées et d'événements</p>
                 </div>
             </div>
-        </div>
-    </header>
 
-    <!-- Première section -->
-    <div class="section">
-        <div class="container">
-            <h1>PARTYNEXTDOOR</h1>
-            <h2>TON GUIDE ULTIME</h2>
-            <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
-            <button class="btn">Voir plus d'évènements</button>
-        </div>
-        <video class="promo-video" autoplay muted loop>
-            <source src="image/vidéo.mov" type="video/mp4">
-            Votre navigateur ne supporte pas les vidéos HTML5.
-        </video>
+            <h2>Événements à venir</h2>
+            <div class="event-grid">
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/250x150" alt="Summer Vibes Festival" class="event-image">
+                    <div class="event-info">
+                        <div class="event-title">Summer Vibes Festival</div>
+                        <div class="event-date">15 Juillet 2024</div>
+                        <div class="event-location">Parc des Expositions, Paris</div>
+                        <div class="event-tags">
+                            <span class="tag">Electro</span>
+                            <span class="tag">Techno</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/250x150" alt="Rock Night" class="event-image">
+                    <div class="event-info">
+                        <div class="event-title">Rock Night</div>
+                        <div class="event-date">22 Août 2024</div>
+                        <div class="event-location">Zénith, Paris</div>
+                        <div class="event-tags">
+                            <span class="tag">Rock</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/250x150" alt="Urban Beats" class="event-image">
+                    <div class="event-info">
+                        <div class="event-title">Urban Beats</div>
+                        <div class="event-date">5 Septembre 2024</div>
+                        <div class="event-location">La Cigale, Paris</div>
+                        <div class="event-tags">
+                            <span class="tag">Rap</span>
+                            <span class="tag">Electro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/250x150" alt="Techno Paradise" class="event-image">
+                    <div class="event-info">
+                        <div class="event-title">Techno Paradise</div>
+                        <div class="event-date">19 Octobre 2024</div>
+                        <div class="event-location">Warehouse, Paris</div>
+                        <div class="event-tags">
+                            <span class="tag">Techno</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="button">Voir tous les événements</a>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>À PROPOS</h4>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>DÉCOUVRIR</h4>
+                    <ul>
+                        <li><a href="event.html#concerts">CONCERTS</a></li>
+                        <li><a href="event.html">SOIRÉES</a></li>
+                        <li><a href="event.html">FESTIVALS</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>AIDE</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="faq.html">Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>LÉGAL</h4>
+                    <ul>
+                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
+                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
+                        <li><a href="politique-cookie.php">Cookies</a></li>
+                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
+            </div>
+        </footer>
     </div>
-
-    </div> 
-
-
-    <section class="events" id="events">
-        <div class="events-header">
-            <h2>ÉVÉNEMENTS À LA UNE</h2>
-            <div class="location">PARIS</div>
-        </div>
-        <div class="events-grid">
-            <a href="connexion.php" class="event-card">
-                <img src="image/event1.webp" alt="Événement 1" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">City of Gods</h3>
-                    <p class="event-venue">Le Petit Bain, Paris</p>
-                    <div class="event-details">
-                        <span>ven. 16 jan | 23:30</span>
-                        <span>25€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">FESTIVALS</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.php" class="event-card">
-                <img src="image/event2.webp" alt="Événement 2" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Electric Nights</h3>
-                    <p class="event-venue">La Machine du Moulin Rouge</p>
-                    <div class="event-details">
-                        <span>sam. 24 jan | 22:00</span>
-                        <span>30€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.php" class="event-card">
-                <img src="image/event3.jpg" alt="Événement 3" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Nuit Sonore</h3>
-                    <p class="event-venue">Rex Club</p>
-                    <div class="event-details">
-                        <span>sam. 1 déc | 23:00</span>
-                        <span>20€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-     <!-- Deuxième section -->
-    <div class="section-2">
-        <div class="container">
-            <h1 class="large">CONCERTS</h1>
-            <h2 class="medium">SOIRÉES</h2>
-            <div class="highlight">
-                <h1 class="large">FESTIVALS</h1>
-            </div>
-        </div>
-    </div>
-
-    <!-- Troisième section -->
-    <div class="section-3">
-        <div class="container">
-            <h1>VOUS ORGANISEZ UN ÉVÈNEMENT ?<br> TROUVEZ VOTRE PUBLIC !</h1>
-            <p>Vendez vos billets à la bonne personne, au bon moment,<br> avec le bon message, au bon prix et via le bon canal.</p>
-            <a href="#" class="button">PUBLIER MON ÉVÈNEMENT</a>
-        </div>
-    </div>
+</body>
+</html>

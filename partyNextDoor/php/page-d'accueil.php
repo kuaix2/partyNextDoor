@@ -1,46 +1,20 @@
 <?php
 // Connexion à la base de données
-$host = 'localhost'; // Remplacez par votre hôte
-$dbname = 'bddpartynextdoor'; // Nom de votre base de données
-$username = 'root'; // Nom d'utilisateur MySQL
-$password = ''; // Mot de passe MySQL
+$host = 'localhost'; // Hôte de la base de données
+$dbname = 'partynextdoor'; // Nom de la base de données
+$username = 'root'; // Nom d'utilisateur
+$password = ''; // Mot de passe
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
+    die("Erreur : " . $e->getMessage());
 }
 
-// Gestion des requêtes POST pour insérer des données dynamiques
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['event_title'], $_POST['event_venue'], $_POST['event_date'], $_POST['event_price'], $_POST['event_tags'])) {
-        $title = $_POST['event_title'];
-        $venue = $_POST['event_venue'];
-        $date = $_POST['event_date'];
-        $price = $_POST['event_price'];
-        $tags = $_POST['event_tags'];
-
-        $sql = "INSERT INTO events (title, venue, date, price, tags) VALUES (:title, :venue, :date, :price, :tags)";
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->execute([
-            ':title' => $title,
-            ':venue' => $venue,
-            ':date' => $date,
-            ':price' => $price,
-            ':tags' => $tags
-        ]);
-
-        echo "Événement ajouté avec succès !";
-    } else {
-        echo "Données incomplètes pour ajouter un événement.";
-    }
-}
-
-// Récupération des événements depuis la base de données
-$sql = "SELECT * FROM events ORDER BY date ASC Limit 3";
-$stmt = $pdo->query($sql);
+// Récupérer les événements (limite de 3)
+$query = "SELECT * FROM events LIMIT 3"; // Adaptez ce nom à votre table
+$stmt = $pdo->query($query);
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -49,53 +23,79 @@ $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartyNextDoor - Événements</title>
+    <title>PartyNextDoor</title>
+    <!-- Importation des polices -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .event-card {
-            border: 1px solid #ddd;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/page-d'accueil.css">
 </head>
 <body>
-    <h1>Liste des événements</h1>
-    <div>
-        <?php foreach ($events as $event): ?>
-            <div class="event-card">
-                <h2><?= htmlspecialchars($event['title']) ?></h2>
-                <p><strong>Lieu :</strong> <?= htmlspecialchars($event['venue']) ?></p>
-                <p><strong>Date :</strong> <?= htmlspecialchars($event['date']) ?></p>
-                <p><strong>Prix :</strong> <?= htmlspecialchars($event['price']) ?>€</p>
-                <p><strong>Tags :</strong> <?= htmlspecialchars($event['tags']) ?></p>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="scrollToTop()"><img src="image/PND.png" alt="Logo"></a>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu">
             </div>
-        <?php endforeach; ?>
+            <div class="menu-burger">
+                <div class="menu-icon"></div>
+                <div class="menu-icon"></div>
+                <div class="menu-icon"></div>
+                <div class="menu-dropdown">
+                    <a href="#" class="menu-item">Mon profil</a>
+                    <a href="#" class="menu-item">Je suis organisateur</a>
+                    <a href="#" class="menu-item">Festivals</a>
+                    <a href="#" class="menu-item">Concerts</a>
+                    <a href="#" class="menu-item">Soirées</a>
+                    <a href="#events" class="menu-item">Tous les évènements</a>
+                    <a href="#" class="menu-item">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="container">
+            <h1>PARTYNEXTDOOR</h1>
+            <h2>TON GUIDE ULTIME</h2>
+            <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
+            <button class="btn" onclick="window.location.href='#events'">Voir plus d'évènements</button>
+        </div>
+        <video class="promo-video" autoplay muted loop>
+            <source src="image/vidéo.mov" type="video/mp4">
+            Votre navigateur ne supporte pas les vidéos HTML5.
+        </video>
     </div>
 
-    <h2>Ajouter un nouvel événement</h2>
-    <form method="POST">
-        <label for="event_title">Titre :</label>
-        <input type="text" id="event_title" name="event_title" required><br>
+    <section class="events" id="events">
+        <div class="events-header">
+            <h2>ÉVÉNEMENTS À LA UNE</h2>
+            <div class="location">PARIS</div>
+        </div>
+        <div class="events-grid">
+            <?php foreach ($events as $event): ?>
+                <a href="connexion.php" class="event-card">
+                    <img src="image/<?= htmlspecialchars($event['image']) ?>" alt="<?= htmlspecialchars($event['title']) ?>" class="event-image">
+                    <div class="event-content">
+                        <h3 class="event-title"><?= htmlspecialchars($event['title']) ?></h3>
+                        <p class="event-venue"><?= htmlspecialchars($event['venue']) ?></p>
+                        <div class="event-details">
+                            <span><?= htmlspecialchars($event['date']) ?> | <?= htmlspecialchars($event['time']) ?></span>
+                            <span><?= htmlspecialchars($event['price']) ?>€</span>
+                        </div>
+                        <div class="event-tags">
+                            <span class="tag"><?= htmlspecialchars($event['tag']) ?></span>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
-        <label for="event_venue">Lieu :</label>
-        <input type="text" id="event_venue" name="event_venue" required><br>
-
-        <label for="event_date">Date :</label>
-        <input type="datetime-local" id="event_date" name="event_date" required><br>
-
-        <label for="event_price">Prix :</label>
-        <input type="number" id="event_price" name="event_price" required><br>
-
-        <label for="event_tags">Tags :</label>
-        <input type="text" id="event_tags" name="event_tags" required><br>
-
-        <button type="submit">Ajouter l'événement</button>
-    </form>
+    <script>
+        // Fonction pour remonter en haut de la page
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
