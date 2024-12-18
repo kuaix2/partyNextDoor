@@ -62,13 +62,16 @@
                 <!-- List of Constraints -->
                 <ul class="constraint-list" id="password-constraints">
                     <li class="constraint-item" id="length-constraint">
-                        <span>✖</span> Entre 8 et 20 caractères
+                        <span>✖</span> Au moins 9 caractères
                     </li>
                     <li class="constraint-item" id="letter-constraint">
                         <span>✖</span> Contient au moins une lettre
                     </li>
                     <li class="constraint-item" id="number-constraint">
                         <span>✖</span> Contient au moins un chiffre
+                    </li>
+                    <li class="constraint-item" id="special-constraint">
+                        <span>✖</span> Contient au moins un caractère spécial
                     </li>
                 </ul>
             </div>
@@ -85,23 +88,26 @@
         const lengthConstraint = document.getElementById('length-constraint');
         const letterConstraint = document.getElementById('letter-constraint');
         const numberConstraint = document.getElementById('number-constraint');
+        const specialConstraint = document.getElementById('special-constraint');
 
         // Fonction de validation
         function validatePassword() {
             const password = passwordInput.value;
 
             // Vérification des contraintes
-            const isLongEnough = password.length >= 8 && password.length <= 20;
+            const isLongEnough = password.length >= 9;
             const hasLetter = /[A-Za-z]/.test(password);
             const hasNumber = /\d/.test(password);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
             // Mise à jour des indicateurs
             updateConstraint(lengthConstraint, isLongEnough);
             updateConstraint(letterConstraint, hasLetter);
             updateConstraint(numberConstraint, hasNumber);
+            updateConstraint(specialConstraint, hasSpecial);
 
             // Activer ou désactiver le bouton de soumission
-            submitButton.disabled = !(isLongEnough && hasLetter && hasNumber);
+            submitButton.disabled = !(isLongEnough && hasLetter && hasNumber && hasSpecial);
         }
 
         // Mettre à jour les contraintes (✔ ou ✖)
