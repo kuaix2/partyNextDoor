@@ -82,3 +82,30 @@ input[type="password"]:focus {
 .button-inscription:hover {
     background-color: #ffb3b3;
 }
+
+.constraint-list {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.constraint-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.constraint-item span {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}

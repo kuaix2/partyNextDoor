@@ -95,7 +95,7 @@ $conn->close();
                 <div class="menu-icon"></div>
                 <div class="menu-dropdown">
                     <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="php/dashboard.php" class="menu-item">Je suis organisateur</a>
+                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
                     <a href="tous-les-events.php" class="menu-item">Festivals</a>
                     <a href="tous-les-events.php" class="menu-item">Concerts</a>
                     <a href="tous-les-events.php" class="menu-item">Soirées</a>
