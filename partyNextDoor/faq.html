@@ -66,70 +66,27 @@
         </div>
     </section>
 
-    <section class="question-section">
-        <h2>Pose ta question</h2>
-        <form>
-            <div class="form-group">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" required>
-            </div>
-            <div class="form-group">
-                <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required>
-            </div>
-            <div class="form-group">
-                <label for="theme">Thème</label>
-                <select id="theme" name="theme" required>
-                    <option value="connection">Connexion</option>
-                    <option value="registration">Inscription</option>
-                    <option value="payment">Paiement</option>
-                    <option value="event">Soirée</option>
-                    <option value="ticket">Billets</option>
-                    <option value="other">Autres</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="question">Votre question</label>
-                <textarea id="question" name="question" placeholder="Écrivez votre question ici..." required></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit">Envoyer</button>
-            </div>
-        </form>
-    </section>
-
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-nav">
-                <div class="footer-section">
-                    <h4>À PROPOS</h4>
-                    <ul>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-
+    
                 <div class="footer-section">
                     <h4>DÉCOUVRIR</h4>
                     <ul>
-                        <li><a href="event.html#concerts" class="event-card" data-type="concert">CONCERTS</a></li>
-                        <li><a href="event.html">SOIRÉES</a></li>
-                        <li><a href="event.html">FESTIVALS</a></li>
-                        
+                        <li><a href="tous-les-events.php">Concerts</a></li>
+                        <li><a href="tous-les-events.php">Soirées</a></li>
+                        <li><a href="tous-les-events.php">Festivals</a></li>
                     </ul>
                 </div>
-
+    
                 <div class="footer-section">
                     <h4>AIDE</h4>
                     <ul>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="faq.html">Support</a></li>
                     </ul>
                 </div>
-
+    
                 <div class="footer-section">
                     <h4>LÉGAL</h4>
                     <ul>
@@ -140,13 +97,13 @@
                     </ul>
                 </div>
             </div>
-
+    
             <div class="copyright">
                 <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
-
+    
     <script>
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {

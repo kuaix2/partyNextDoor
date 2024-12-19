@@ -1,7 +1,7 @@
 <?php
 // Connexion à la base de données
 $host = 'localhost'; // Remplacez par votre hôte
-$dbname = 'partynextdoortest'; // Remplacez par le nom de votre base de données
+$dbname = 'bddpartynextdoor'; // Remplacez par le nom de votre base de données
 $username = 'root'; // Remplacez par votre nom d'utilisateur
 $password = ''; // Remplacez par votre mot de passe
 
@@ -38,8 +38,6 @@ if (!$user) {
     <title>PARTYNEXTDOOR - Profil</title>
     <link rel="stylesheet" href="css/profil.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
     
 </head>
 <body>
@@ -171,50 +169,43 @@ if (!$user) {
         }
     </script>
 
-<footer class="footer">
-        <div class="footer-content">
-            <div class="footer-nav">
-                <div class="footer-section">
-                    <h4>À PROPOS</h4>
-                    <ul>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="footer-content">
+        <div class="footer-nav">
 
-                <div class="footer-section">
-                    <h4>DÉCOUVRIR</h4>
-                    <ul>
-                        <li><a href="event.html#concerts" class="event-card" data-type="concert">CONCERTS</a></li>
-                        <li><a href="event.html">SOIRÉES</a></li>
-                        <li><a href="event.html">FESTIVALS</a></li>
-                        
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>AIDE</h4>
-                    <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="faq.html">Support</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>LÉGAL</h4>
-                    <ul>
-                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                        <li><a href="politique-cookie.php">Cookies</a></li>
-                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                    </ul>
-                </div>
+            <div class="footer-section">
+                <h4>DÉCOUVRIR</h4>
+                <ul>
+                    <li><a href="tous-les-events.html">Concerts</a></li>
+                    <li><a href="tous-les-events.html">Soirées</a></li>
+                    <li><a href="tous-les-events.html">Festivals</a></li>
+                </ul>
             </div>
 
-            <div class="copyright">
-                <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
+            <div class="footer-section">
+                <h4>AIDE</h4>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>LÉGAL</h4>
+                <ul>
+                    <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
+                    <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
+                    <li><a href="politique-cookie.php">Cookies</a></li>
+                    <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+
+        <div class="copyright">
+            <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
