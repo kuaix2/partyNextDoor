@@ -260,4 +260,12 @@ footer {
     color: #000;
 }
 
+.copyright-text {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    background-color: #f8f8f8;
+}
 

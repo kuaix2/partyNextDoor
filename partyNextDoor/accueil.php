@@ -155,7 +155,7 @@ $conn->close();
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+<footer class="footer">
     <div class="footer-content">
         <div class="footer-nav">
 
@@ -187,8 +187,9 @@ $conn->close();
         </div>
 
         <div class="copyright">
-            <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
+            <p class="copyright-text">© 2024 PartyNextDoor. Tous droits réservés.</p>
         </div>
+
     </div>
 </footer>
 
