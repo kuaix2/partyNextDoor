@@ -7,30 +7,15 @@ $dbname = "bddpartynextdoor";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Vérification de la connexion
+// Vérifier la connexion
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Récupérer la requête de recherche si présente
-$searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+// Récupérer les événements depuis la base de données
+$sql = "SELECT * FROM events ORDER BY event_date DESC LIMIT 3"; // Limité à 3 événements pour afficher dans la section
+$result = $conn->query($sql);
 
-// Si une requête est fournie, rechercher dans la base de données
-if ($searchQuery) {
-    // Préparer la requête SQL pour la recherche
-    $sql = "SELECT * FROM events WHERE event_name LIKE ?";
-    $stmt = $conn->prepare($sql);
-    $searchTerm = "%" . $searchQuery . "%"; // Utilisation de joker pour la recherche partielle
-    $stmt->bind_param("s", $searchTerm);
-    $stmt->execute();
-    $result = $stmt->get_result();
-} else {
-    // Si aucune recherche, récupérer tous les événements
-    $sql = "SELECT * FROM events ORDER BY event_date DESC";
-    $result = $conn->query($sql);
-}
-
-// Récupérer les événements dans un tableau
 $events = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -40,30 +25,29 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartyNextDoor</title>
-
-    <!-- Importation des polices -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/accueil.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/header.css">
+    <title>PartyNextDoor - Guide des soirées et festivals</title>
     <link rel="stylesheet" href="css/cookies.css">
-
+    <link rel="stylesheet" href="css/acu.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="gradient-shape"></div>
+    <div class="gradient-shape-2"></div>
+
     <!-- Barre de navigation -->
     <header class="header">
         <div class="header-content">
             <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="search-bar">
-               <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu" id="searchInput">
-            </div>
             <div class="menu-burger">
                 <div class="menu-icon"></div>
                 <div class="menu-icon"></div>
@@ -81,26 +65,21 @@ $conn->close();
         </div>
     </header>
 
-    <!-- Première section -->
-    <div class="section">
-        <div class="container">
-            <h1>PARTYNEXTDOOR</h1>
-            <h2>TON GUIDE ULTIME</h2>
-            <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
-            <button class="btn" onclick="window.location.href='tous-les-events.php'">Tous les événements</button>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bienvenue sur PartyNextDoor</h1>
+            <p>ton guide ultime pour toutes les soirées et festivals en France!</p>
+            <a href="#events" class="cta-button" id="learn-more">EN SAVOIR PLUS</a>
+            <div class="app-preview">
+                <img src="image/phone.webp" alt="PartyNextDoor App" style="background: #86858544; padding: 20px;">
+            </div>
         </div>
-        <video class="promo-video" autoplay muted loop>
-            <source src="image/vidéo.mov" type="video/mp4">
-        </video>
-    </div>
-
-    </div> 
-
+    </section>
 
     <section class="events" id="events">
         <div class="events-header">
             <h2>ÉVÉNEMENTS À LA UNE</h2>
-            <a href="tous-les-events.php" class="btn-voir-plus">Voir plus</a>
+            <a href="event.php" class="btn-voir-plus">Voir plus</a>
         </div>
         <div class="events-grid">
             <?php if (!empty($events)): ?>
@@ -127,27 +106,7 @@ $conn->close();
             <?php endif; ?>
         </div>
     </section>
-
-     <!-- Deuxième section -->
-    <div class="section-2">
-        <div class="container">
-            
-            <h1 class="large"><a href="tous-les-events.php" class="large">CONCERTS</a></h1>
-            <h2 class="medium"><a href="tous-les-events.php" class="medium">SOIRÉES</a></h2>
-            <h1 class="large"><a href="tous-les-events.php" class="large">FESTIVALS</a></h1>
-
-        </div>
-    </div>
-
-    <!-- Troisième section -->
-    <div class="section-3">
-        <div class="container">
-            <h1>VOUS ORGANISEZ UN ÉVÈNEMENT ?<br> TROUVEZ VOTRE PUBLIC !</h1>
-            <p>Vendez vos billets à la bonne personne, au bon moment,<br> avec le bon message, au bon prix et via le bon canal.</p>
-            <a href="php/dashboard.php" class="button">PUBLIER MON ÉVÈNEMENT</a>
-        </div>
-    </div>
-
+    
     <div id="cookie-popup" class="cookie-popup">
         <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. En utilisant notre site, vous acceptez les cookies.</p>
         <button id="accept-cookies">Accepter</button>
@@ -155,7 +114,7 @@ $conn->close();
     </div>
 
     <!-- Footer -->
-<footer class="footer">
+    <footer class="footer">
     <div class="footer-content">
         <div class="footer-nav">
 
@@ -187,22 +146,21 @@ $conn->close();
         </div>
 
         <div class="copyright">
-            <p class="copyright-text">© 2024 PartyNextDoor. Tous droits réservés.</p>
+            <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
         </div>
-
     </div>
 </footer>
 
-<script>
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            let query = e.target.value; // Récupère la valeur de la barre de recherche
-            if (query) {
-                window.location.href = `search.php?q=${encodeURIComponent(query)}`; // Redirige vers la page de recherche avec la query
-            }
-        }
-    });
-</script>
 
-<script src="script/cookies.js"></script>
+    <script>
+        document.getElementById('learn-more').addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventsSection = document.getElementById('events');
+            eventsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+    <script src="script/cookies.js"></script>
+</body>
 
+
+</html>
