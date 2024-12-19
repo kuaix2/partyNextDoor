@@ -92,21 +92,21 @@ if (!$user) {
                     </button>
                     <button class="ticket-button" onclick="viewTicket('ticket3')">
                         <span class="ticket-icon">🎟️</span>
-                        <span class="ticket-text">Concert Pop - 10/09/2023</span>
+                        <span class="ticket-text">Concert Pop - <br> 10/09/2023</span>
                     </button>
                 </div>
                 <h2>FAVORIS</h2>
                 <div class="favorites">
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #4CAF50;">🎭</div>
+                        <div class="favorite-icon" style="background-color: #e9d4f2;">🎭</div>
                         <span>La Gaîtière</span>
                     </div>
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #F44336;">💖</div>
+                        <div class="favorite-icon" style="background-color: #f5ccd5;">💖</div>
                         <span>HeartDisco</span>
                     </div>
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #3F51B5;">🎸</div>
+                        <div class="favorite-icon" style="background-color: #ff9e6a;">🎸</div>
                         <span>Rock In Scene</span>
                     </div>
                 </div>
