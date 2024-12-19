@@ -83,7 +83,7 @@ $conn->close();
     <section class="events" id="events">
         <div class="events-header">
             <h2>ÉVÉNEMENTS À LA UNE</h2>
-            <a href="event.html" class="btn-voir-plus">Voir plus</a>
+            <a href="event.php" class="btn-voir-plus">Voir plus</a>
         </div>
         <div class="events-grid">
             <?php if (!empty($events)): ?>
