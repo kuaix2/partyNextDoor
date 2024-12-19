@@ -70,7 +70,7 @@ $conn->close();
                 <div class="menu-icon"></div>
                 <div class="menu-dropdown">
                     <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="php/dashboard.php" class="menu-item">Je suis organisateur</a>
+                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
                     <a href="tous-les-events.php" class="menu-item">Festivals</a>
                     <a href="tous-les-events.php" class="menu-item">Concerts</a>
                     <a href="tous-les-events.php" class="menu-item">Soirées</a>
@@ -144,7 +144,7 @@ $conn->close();
         <div class="container">
             <h1>VOUS ORGANISEZ UN ÉVÈNEMENT ?<br> TROUVEZ VOTRE PUBLIC !</h1>
             <p>Vendez vos billets à la bonne personne, au bon moment,<br> avec le bon message, au bon prix et via le bon canal.</p>
-            <a href="php/dashboard.php" class="button">PUBLIER MON ÉVÈNEMENT</a>
+            <a href="dashboard.php" class="button">PUBLIER MON ÉVÈNEMENT</a>
         </div>
     </div>
 

@@ -10,7 +10,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch the content for "Mentions légales"
 $page_name = 'Politique de confidentialité';
 $sql = "SELECT content FROM multiple_content WHERE page_name = ?";
 $stmt = $conn->prepare($sql);
@@ -21,9 +20,8 @@ $stmt->fetch();
 $stmt->close();
 $conn->close();
 
-// Default to a placeholder if no content found
 if (empty($content)) {
-    $content = "<p>Content not available.</p>";
+    $content = "<p>Contenu non disponible.</p>";
 }
 ?>
 
