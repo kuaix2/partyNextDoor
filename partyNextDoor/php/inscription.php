@@ -48,6 +48,6 @@ $conn->close();
 ?>
 
 <!-- Bouton pour retourner à acu.html -->
-<form action="../acu.html">
+<form action="../accueil_hors_connexion.php">
     <button type="submit">Retour à la page d'accueil</button>
 </form>

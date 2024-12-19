@@ -1,3 +1,46 @@
+<?php
+// Connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bddpartynextdoor";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérification de la connexion
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Récupérer la requête de recherche si présente
+$searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+
+// Si une requête est fournie, rechercher dans la base de données
+if ($searchQuery) {
+    // Préparer la requête SQL pour la recherche
+    $sql = "SELECT * FROM events WHERE event_name LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $searchTerm = "%" . $searchQuery . "%"; // Utilisation de joker pour la recherche partielle
+    $stmt->bind_param("s", $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    // Si aucune recherche, récupérer tous les événements
+    $sql = "SELECT * FROM events ORDER BY event_date DESC";
+    $result = $conn->query($sql);
+}
+
+// Récupérer les événements dans un tableau
+$events = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $events[] = $row;
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,9 +61,6 @@
     <header class="header">
         <div class="header-content">
             <a href="/" class="logo"><img src="image/PND.png" ></a>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu">
-            </div>
             <div class="header-buttons">
                 <a href="connexion.php" class="btn btn-outline">Se connecter</a>
                 <a href="inscription.html" class="btn btn-primary">S'inscrire</a>
@@ -40,59 +80,39 @@
     </section>
 
     <section class="events" id="events">
-        <div class="events-header">
-            <h2>ÉVÉNEMENTS À LA UNE</h2>
-            <div class="location">PARIS</div>
-        </div>
-        <div class="events-grid">
-            <a href="connexion.php" class="event-card">
-                <img src="image/event1.webp" alt="Événement 1" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">City of Gods</h3>
-                    <p class="event-venue">Le Petit Bain, Paris</p>
-                    <div class="event-details">
-                        <span>ven. 16 jan | 23:30</span>
-                        <span>25€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">FESTIVALS</span>
-                        
-                    </div>
-                </div>
-            </a>
 
-            <a href="connexion.php" class="event-card">
-                <img src="image/event2.webp" alt="Événement 2" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Electric Nights</h3>
-                    <p class="event-venue">La Machine du Moulin Rouge</p>
-                    <div class="event-details">
-                        <span>sam. 24 jan | 22:00</span>
-                        <span>30€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-
-            <a href="connexion.php" class="event-card">
-                <img src="image/event3.jpg" alt="Événement 3" class="event-image">
-                <div class="event-content">
-                    <h3 class="event-title">Nuit Sonore</h3>
-                    <p class="event-venue">Rex Club</p>
-                    <div class="event-details">
-                        <span>sam. 1 déc | 23:00</span>
-                        <span>20€</span>
-                    </div>
-                    <div class="event-tags">
-                        <span class="tag">SOIRÉES</span>
-                        
-                    </div>
-                </div>
-            </a>
-        </div>
+        <section class="events" id="events">
+            <div class="events-header">
+                <h2>ÉVÉNEMENTS À LA UNE</h2>
+                <a href="tous-les-events.php" class="btn-voir-plus">Voir plus</a>
+            </div>
+            <div class="events-grid">
+                <?php if (!empty($events)): ?>
+                    <?php foreach ($events as $event): ?>
+                        <a href="connexion.php">
+                            <?php if ($event['event_image']): ?>
+                                <img src="php/<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                                <?php endif; ?>
+                            <div class="event-content">
+                                <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
+                                <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
+                                <div class="event-details">
+                                    <span><?php echo date("D d M | H:i", strtotime($event['event_date'])); ?></span>
+                                    <span><?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
+                                </div>
+                                <div class="event-tags">
+                                    <span class="tag"><?php echo htmlspecialchars($event['event_tags']); ?></span>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Aucun événement disponible.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+        
+    
     </section>
     <div id="cookie-popup" class="cookie-popup">
         <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. En utilisant notre site, vous acceptez les cookies.</p>

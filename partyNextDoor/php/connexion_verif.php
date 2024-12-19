@@ -28,8 +28,8 @@ if (isset($_POST['username'], $_POST['password'])) {
 
         // Vérifier le mot de passe
         if (password_verify($password, $user['mot_de_passe'])) {
-            // Si les identifiants sont corrects, rediriger vers acu.html
-            header("Location: ../accueil2.php");
+            // Si les identifiants sont corrects, rediriger 
+            header("Location: ../accueil.php");
             exit;
         } else {
             // Si le mot de passe est incorrect, définir le message d'erreur
