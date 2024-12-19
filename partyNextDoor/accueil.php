@@ -87,7 +87,7 @@ $conn->close();
             <h1>PARTYNEXTDOOR</h1>
             <h2>TON GUIDE ULTIME</h2>
             <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
-            <button class="btn" onclick="window.location.href='tous-les-events.php'">Tous les événements</button>
+            <a href="#events" class="btn" id="learn-more">Tous les événements</a>
         </div>
         <video class="promo-video" autoplay muted loop>
             <source src="image/vidéo.mov" type="video/mp4">
@@ -202,6 +202,13 @@ $conn->close();
             }
         }
     });
+
+
+    document.getElementById('learn-more').addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventsSection = document.getElementById('events');
+            eventsSection.scrollIntoView({ behavior: 'smooth' });
+        });
 </script>
 
 <script src="script/cookies.js"></script>
