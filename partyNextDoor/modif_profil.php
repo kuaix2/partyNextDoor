@@ -1,7 +1,7 @@
 <?php
 // Connexion à la base de données
 $host = 'localhost';
-$dbname = 'partynextdoortest';
+$dbname = 'bddpartynextdoor';
 $username = 'root';
 $password = '';
 
@@ -14,7 +14,7 @@ try {
 
 // Démarrage de la session
 session_start();
-$userId = $_SESSION['user_id'] ?? 20; // Remplacez par la gestion de session appropriée
+$userId = $_SESSION['user_id'] ?? 16; // Remplacez par la gestion de session appropriée
 
 // Récupérer les informations actuelles de l'utilisateur
 $sql = "SELECT nom_utilisateur, email, mot_de_passe, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";

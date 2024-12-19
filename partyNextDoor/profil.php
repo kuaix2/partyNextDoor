@@ -14,7 +14,7 @@ try {
 
 // Obtenir l'ID de l'utilisateur (exemple avec une session utilisateur)
 session_start();
-$userId = $_SESSION['user_id'] ?? 20; // Remplacez par la gestion de session appropriée
+$userId = $_SESSION['user_id'] ?? 16; // Remplacez par la gestion de session appropriée
 
 // Requête pour récupérer les informations de l'utilisateur
 $sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
