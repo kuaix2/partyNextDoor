@@ -37,7 +37,7 @@ $conn->close();
 
 // Définit un contenu par défaut si aucun résultat trouvé
 if (empty($content)) {
-    $content = "<p>Content not available.</p>";
+    $content = "<p>Contenu non disponible.</p>";
 }
 ?>
 

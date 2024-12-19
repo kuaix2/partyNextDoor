@@ -81,206 +81,31 @@ $conn->close();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tableau de bord organisateur</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    .dashboard-container {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 40px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-      color: #4CAF50;
-      font-size: 36px;
-      margin-bottom: 40px; /* Espacement plus grand entre le titre et le formulaire */
-    }
-
-    .event-form {
-      display: flex;
-      flex-direction: column;
-      gap: 30px; /* Augmentation de l'espace entre les champs */
-    }
-
-    .event-form label {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .event-form input, .event-form textarea, .event-form select {
-      padding: 12px;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .event-form input[type="file"] {
-      padding: 10px;
-    }
-
-    .event-form button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background-color 0.3s ease;
-      margin-top: 20px; /* Ajouter de l'espace au-dessus du bouton */
-    }
-
-    .event-form button:hover {
-      background-color: #45a049;
-    }
-
-    /* Ajuster les espacements dans la liste des événements */
-    .your-events ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .your-events li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      margin-bottom: 20px; /* Espacement entre les événements */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .your-events li:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .event-card {
-      display: flex;
-      text-decoration: none;
-      color: inherit;
-      width: 100%;
-    }
-
-    .event-image {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-right: 20px;
-    }
-
-    .event-content {
-      flex-grow: 1;
-    }
-
-    .event-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: #333;
-      margin: 0;
-      padding-bottom: 5px;
-    }
-
-    .event-venue {
-      font-size: 16px;
-      color: #777;
-      margin: 5px 0;
-    }
-
-    .event-details {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #555;
-      margin-top: 10px;
-    }
-
-    .event-details span {
-      margin-right: 15px;
-    }
-
-    .event-tags {
-      margin-top: 10px;
-    }
-
-    .tag {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 14px;
-    }
-
-    .event-form textarea {
-      height: 150px;
-      resize: vertical;
-    }
-
-    .message {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 18px;
-      color: #4CAF50;
-    }
-
-    /* Ajuster les espacements dans le formulaire */
-    .event-form input,
-    .event-form select,
-    .event-form textarea,
-    .event-form button {
-      margin-bottom: 20px; /* Ajout d'un espacement en bas de chaque élément */
-    }
-
-    @media (max-width: 768px) {
-      .dashboard-container {
-        padding: 20px;
-        margin: 20px;
-      }
-
-      .event-form input,
-      .event-form select,
-      .event-form textarea {
-        font-size: 14px;
-      }
-
-      .your-events li {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .event-image {
-        margin-bottom: 10px;
-        width: 100%;
-        height: auto;
-      }
-
-      .event-details {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .event-details span {
-        margin-bottom: 8px;
-      }
-    }
-  </style>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
+
+<header class="header">
+        <div class="header-content">
+            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
+            <div class="menu-burger">
+                <div class="menu-icon"></div>
+                <div class="menu-icon"></div>
+                <div class="menu-icon"></div>
+                <div class="menu-dropdown">
+                    <a href="profil.php" class="menu-item">Mon profil</a>
+                    <a href="php/dashboard.php" class="menu-item">Je suis organisateur</a>
+                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
+                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
+                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
+                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
+                    <a href="faq.html" class="menu-item">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
   <div class="dashboard-container">
     <h1>Tableau de bord organisateur</h1>
 
@@ -332,10 +157,10 @@ $conn->close();
         <?php if (count($events) > 0): ?>
           <?php foreach ($events as $event): ?>
             <li>
-              <a href="test.php" class="event-card">
+                <a href="fiche-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
                 <?php if ($event['event_image']): ?>
-                  <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Image de l'événement" class="event-image" width="100">
-                <?php endif; ?>
+                    <img src="php/<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                    <?php endif; ?>
                 <div class="event-content">
                   <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
                   <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
