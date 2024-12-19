@@ -17,7 +17,7 @@ body {
     left: 0;
     width: 50%;
     height: 80vh;
-    background: linear-gradient(45deg, #FFB1B1, #FF9B9B, #FFB4A2);
+    background: linear-gradient(45deg, #ffb3b3, #FF9B9B, #FFB4A2);
     clip-path: path('M0,0 C100,0 100,50 50,100 C0,150 0,100 0,0');
     opacity: 0.3;
     z-index: -1;
