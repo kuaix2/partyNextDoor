@@ -14,7 +14,7 @@ try {
 
 // Obtenir l'ID de l'utilisateur (exemple avec une session utilisateur)
 session_start();
-$userId = $_SESSION['user_id'] ?? 20; // Remplacez par la gestion de session appropriée
+$userId = $_SESSION['user_id'] ?? 16; // Remplacez par la gestion de session appropriée
 
 // Requête pour récupérer les informations de l'utilisateur
 $sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
@@ -92,21 +92,21 @@ if (!$user) {
                     </button>
                     <button class="ticket-button" onclick="viewTicket('ticket3')">
                         <span class="ticket-icon">🎟️</span>
-                        <span class="ticket-text">Concert Pop - 10/09/2023</span>
+                        <span class="ticket-text">Concert Pop - <br> 10/09/2023</span>
                     </button>
                 </div>
                 <h2>FAVORIS</h2>
                 <div class="favorites">
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #4CAF50;">🎭</div>
+                        <div class="favorite-icon" style="background-color: #e9d4f2;">🎭</div>
                         <span>La Gaîtière</span>
                     </div>
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #F44336;">💖</div>
+                        <div class="favorite-icon" style="background-color: #f5ccd5;">💖</div>
                         <span>HeartDisco</span>
                     </div>
                     <div class="favorite-item">
-                        <div class="favorite-icon" style="background-color: #3F51B5;">🎸</div>
+                        <div class="favorite-icon" style="background-color: #ff9e6a;">🎸</div>
                         <span>Rock In Scene</span>
                     </div>
                 </div>
