@@ -1,5 +1,5 @@
 <?php
-// Connect to the database
+// Connexion à la base de données
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -7,21 +7,28 @@ $dbname = "bddpartynextdoor";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Vérification de la connexion
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the event ID from the URL
+// Récupérer l'ID de l'événement depuis l'URL
 $event_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Fetch the event from the database
-$sql = "SELECT * FROM events WHERE id = $event_id";
+// Requête SQL avec jointure pour récupérer les informations de l'événement et de l'organisateur
+$sql = "
+    SELECT e.*, u.nom_utilisateur
+    FROM events e
+    LEFT JOIN utilisateur u ON e.user_id = u.id
+    WHERE e.id = $event_id
+";
 $result = $conn->query($sql);
 
 $event = null;
+$organizer_name = '';
 if ($result->num_rows > 0) {
     $event = $result->fetch_assoc();
+    $organizer_name = $event['nom_utilisateur']; // Récupérer le nom de l'organisateur
 }
 
 $conn->close();
@@ -78,7 +85,10 @@ $conn->close();
                     <div class="event-info">
                         <span><strong>Prix :</strong> <?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
                         <span><strong>Genres :</strong> <?php echo htmlspecialchars($event['event_tags']); ?></span>
+                        <span><strong>Organisateur :</strong> <?php echo htmlspecialchars($organizer_name); ?></span>
                     </div>
+
+
                     <p>
                         <?php echo nl2br(htmlspecialchars($event['event_description'])); ?>
                     </p>
@@ -118,9 +128,9 @@ $conn->close();
             <div class="footer-section">
                 <h4>DÉCOUVRIR</h4>
                 <ul>
-                    <li><a href="tous-les-events.php">Concerts</a></li>
-                    <li><a href="tous-les-events.php">Soirées</a></li>
-                    <li><a href="tous-les-events.php">Festivals</a></li>
+                <li><a href="tous-les-events.php?filter=concert">Concerts</a></li>
+                <li><a href="tous-les-events.php?filter=soiree">Soirées</a></li>
+                <li><a href="tous-les-events.php?filter=festival">Festivals</a></li>
                 </ul>
             </div>
 

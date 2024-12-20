@@ -1,4 +1,17 @@
 <?php
+
+session_start();
+
+// Vérifiez si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+    header('Location: login.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];  // Supposons que l'ID de l'utilisateur est stocké dans la session
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -48,10 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_name'])) {
         $filePath = null;
     }
 
-    // Insérer l'événement dans la base de données
-    $sql = "INSERT INTO events (event_name, event_adresse, event_date, event_price, event_tags, event_description, event_image, places_available) 
-            VALUES ('$eventName', '$eventAdresse', '$eventDate', '$eventPrice', '$eventTags', '$eventDescription', '$filePath', '$eventPlaces')";
+// Ajouter l'ID de l'utilisateur connecté
+$user_id = $_SESSION['user_id'];  // L'utilisateur connecté
 
+// Insérer l'événement dans la base de données
+$sql = "INSERT INTO events (event_name, event_adresse, event_date, event_price, event_tags, event_description, event_image, places_available, user_id) 
+        VALUES ('$eventName', '$eventAdresse', '$eventDate', '$eventPrice', '$eventTags', '$eventDescription', '$filePath', '$eventPlaces', '$user_id')";
 
     if ($conn->query($sql) === TRUE) {
         $message = "Événement ajouté avec succès !";
@@ -60,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_name'])) {
     }
 }
 
-// Récupérer tous les événements de la base de données
-$sql = "SELECT * FROM events ORDER BY event_date DESC";
+// Récupérer uniquement les événements de l'utilisateur connecté
+$sql = "SELECT * FROM events WHERE user_id = '$user_id' ORDER BY event_date DESC";
 $result = $conn->query($sql);
 $events = [];
 if ($result->num_rows > 0) {
@@ -69,6 +84,7 @@ if ($result->num_rows > 0) {
         $events[] = $row;
     }
 }
+  
 
 // Fermer la connexion
 $conn->close();

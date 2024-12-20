@@ -14,20 +14,29 @@ if ($conn->connect_error) {
 
 // Récupérer la requête de recherche si présente
 $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+$filterTag = isset($_GET['filter']) ? $_GET['filter'] : 'all'; // Récupérer le filtre sélectionné
 
 // Si une requête est fournie, rechercher dans la base de données
 if ($searchQuery) {
-    // Préparer la requête SQL pour la recherche
     $sql = "SELECT * FROM events WHERE event_name LIKE ?";
     $stmt = $conn->prepare($sql);
-    $searchTerm = "%" . $searchQuery . "%"; // Utilisation de joker pour la recherche partielle
+    $searchTerm = "%" . $searchQuery . "%";
     $stmt->bind_param("s", $searchTerm);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    // Si aucune recherche, récupérer tous les événements
-    $sql = "SELECT * FROM events ORDER BY event_date DESC";
-    $result = $conn->query($sql);
+    // Si un filtre est appliqué, récupérer uniquement les événements correspondants
+    if ($filterTag != 'all') {
+        $sql = "SELECT * FROM events WHERE event_tags = ? ORDER BY event_date DESC"; // Utiliser event_tags
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $filterTag);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        // Si aucun filtre, récupérer tous les événements
+        $sql = "SELECT * FROM events ORDER BY event_date DESC";
+        $result = $conn->query($sql);
+    }
 }
 
 // Récupérer les événements dans un tableau
@@ -40,8 +49,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,138 +68,96 @@ $conn->close();
         <div class="header-content">
             <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
             <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu" id="searchInput">
+                <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu" id="searchInput">
             </div>
             <div class="menu-burger">
                 <div class="menu-icon"></div>
                 <div class="menu-icon"></div>
                 <div class="menu-icon"></div>
                 <div class="menu-dropdown">
-                    <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
-                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
+                    <a href="tous-les-events.php?filter=festival" class="menu-item">Festivals</a>
+                    <a href="tous-les-events.php?filter=concert" class="menu-item">Concerts</a>
+                    <a href="tous-les-events.php?filter=soiree" class="menu-item">Soirées</a>
+                    <a href="tous-les-events.php?filter=all" class="menu-item">Tous les évènements</a>
                     <a href="faq.html" class="menu-item">FAQ</a>
                 </div>
             </div>
         </div>
-    </header>    
+    </header>
 
-
-    
+    <!-- Section des événements -->
     <section class="events" id="events">
+        <div class="filter-buttons">
+            <a href="tous-les-events.php?filter=all" class="filter-button <?php echo ($filterTag == 'all' ? 'active' : ''); ?>">Tous</a>
+            <a href="tous-les-events.php?filter=festival" class="filter-button <?php echo ($filterTag == 'festival' ? 'active' : ''); ?>">Festivals</a>
+            <a href="tous-les-events.php?filter=soiree" class="filter-button <?php echo ($filterTag == 'soiree' ? 'active' : ''); ?>">Soirées</a>
+            <a href="tous-les-events.php?filter=concert" class="filter-button <?php echo ($filterTag == 'concert' ? 'active' : ''); ?>">Concerts</a>
+        </div>
 
-    <div class="filter-buttons">
-        <button class="filter-button active" data-filter="all">Tous</button>
-        <button class="filter-button" data-filter="festival">Festivals</button>
-        <button class="filter-button" data-filter="soiree">Soirées</button>
-        <button class="filter-button" data-filter="concert">Concerts</button>
-    </div>
-
-    <div class="events-header">
-        <h2>ÉVÉNEMENTS</h2>
-    </div>
-    <div class="events-grid">
-        <?php if (!empty($events)): ?>
-            <?php foreach ($events as $event): ?>
-                <a href="fiche-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
-                    <?php if ($event['event_image']): ?>
-                        <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
-                    <?php endif; ?>
-                    <div class="event-content">
-                        <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
-                        <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
-                        <div class="event-details">
-                            <span><?php echo date("D d M | H:i", strtotime($event['event_date'])); ?></span>
-                            <span><?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
+        <div class="events-header">
+            <h2>ÉVÉNEMENTS</h2>
+        </div>
+        <div class="events-grid">
+            <?php if (!empty($events)): ?>
+                <?php foreach ($events as $event): ?>
+                    <a href="fiche-evenement.php?id=<?php echo $event['id']; ?>" class="event-card">
+                        <?php if ($event['event_image']): ?>
+                            <img src="<?php echo htmlspecialchars($event['event_image']); ?>" alt="Événement <?php echo htmlspecialchars($event['event_name']); ?>" class="event-image">
+                        <?php endif; ?>
+                        <div class="event-content">
+                            <h3 class="event-title"><?php echo htmlspecialchars($event['event_name']); ?></h3>
+                            <p class="event-venue"><?php echo htmlspecialchars($event['event_adresse']); ?></p>
+                            <div class="event-details">
+                                <span><?php echo date("D d M | H:i", strtotime($event['event_date'])); ?></span>
+                                <span><?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag"><?php echo htmlspecialchars($event['event_tags']); ?></span>
+                            </div>
                         </div>
-                        <div class="event-tags">
-                            <span class="tag"><?php echo htmlspecialchars($event['event_tags']); ?></span>
-                        </div>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucun événement trouvé pour "<?php echo htmlspecialchars($searchQuery); ?>"</p>
-        <?php endif; ?>
-    </div>
-</section>
-
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun événement trouvé pour "<?php echo htmlspecialchars($searchQuery); ?>"</p>
+            <?php endif; ?>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
-    <div class="footer-content">
-        <div class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-nav">
+                <div class="footer-section">
+                    <h4>DÉCOUVRIR</h4>
+                    <ul>
+                        <li><a href="tous-les-events.php?filter=concert">Concerts</a></li>
+                        <li><a href="tous-les-events.php?filter=soiree">Soirées</a></li>
+                        <li><a href="tous-les-events.php?filter=festival">Festivals</a></li>
+                    </ul>
+                </div>
 
-            <div class="footer-section">
-                <h4>DÉCOUVRIR</h4>
-                <ul>
-                    <li><a href="tous-les-events.php">Concerts</a></li>
-                    <li><a href="tous-les-events.php">Soirées</a></li>
-                    <li><a href="tous-les-events.php">Festivals</a></li>
-                </ul>
+                <div class="footer-section">
+                    <h4>AIDE</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>LÉGAL</h4>
+                    <ul>
+                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
+                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
+                        <li><a href="politique-cookie.php">Cookies</a></li>
+                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="footer-section">
-                <h4>AIDE</h4>
-                <ul>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>LÉGAL</h4>
-                <ul>
-                    <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                    <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                    <li><a href="politique-cookie.php">Cookies</a></li>
-                    <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                </ul>
+            <div class="copyright">
+                <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
             </div>
         </div>
-
-        <div class="copyright">
-            <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
-        </div>
-    </div>
-</footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            const eventCards = document.querySelectorAll('.event-card');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const filter = this.getAttribute('data-filter');
-
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-
-                    eventCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-type') === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-
-<script>
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            let query = e.target.value; // Récupère la valeur de la barre de recherche
-            if (query) {
-                window.location.href = `search.php?q=${encodeURIComponent(query)}`; // Redirige vers la page de recherche avec la query
-            }
-        }
-    });
-</script>
-
+    </footer>
 </body>
 </html>

@@ -1,4 +1,14 @@
 <?php
+
+// Obtenir l'ID de l'utilisateur (exemple avec une session utilisateur)
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    die("Vous devez être connecté pour accéder à cette page."); // Vérifier si l'utilisateur est connecté
+}
+
+$userId = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur depuis la session
+
+
 // Connexion à la base de données
 $host = 'localhost'; // Remplacez par votre hôte
 $dbname = 'bddpartynextdoor'; // Remplacez par le nom de votre base de données
@@ -12,10 +22,6 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// Obtenir l'ID de l'utilisateur (exemple avec une session utilisateur)
-session_start();
-$userId = $_SESSION['user_id'] ?? 1; // Remplacez par la gestion de session appropriée
-
 // Requête pour récupérer les informations de l'utilisateur
 $sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
 $stmt = $pdo->prepare($sql);
@@ -27,6 +33,7 @@ if (!$user) {
     die("Utilisateur non trouvé.");
 }
 ?>
+
 
 
 
@@ -114,9 +121,6 @@ if (!$user) {
             </section>
         </main>
 
-        <footer class="footer">
-            <p>INVITE TES AMIS À FAIRE LA FÊTE AVEC TOI!</p>
-        </footer>
     </div>
 
     <!-- Settings overlay -->

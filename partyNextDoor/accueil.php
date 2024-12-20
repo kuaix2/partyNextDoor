@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+
+// Vérifier si l'utilisateur est connecté et rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+    header("Location: connexion.php");
+    exit();
+}
+
 // Connexion à la base de données
 $servername = "localhost";
 $username = "root";
@@ -38,7 +47,6 @@ if ($result->num_rows > 0) {
     }
 }
 
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +85,8 @@ $conn->close();
                     <a href="tous-les-events.php" class="menu-item">Soirées</a>
                     <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
                     <a href="faq.html" class="menu-item">FAQ</a>
+                    <a href="php/connexion_verif.php?logout=true">Se déconnecter</a>
+
                 </div>
             </div>
         </div>
@@ -163,9 +173,9 @@ $conn->close();
             <div class="footer-section">
                 <h4>DÉCOUVRIR</h4>
                 <ul>
-                    <li><a href="tous-les-events.php">Concerts</a></li>
-                    <li><a href="tous-les-events.php">Soirées</a></li>
-                    <li><a href="tous-les-events.php">Festivals</a></li>
+                <li><a href="tous-les-events.php?filter=concert">Concerts</a></li>
+                <li><a href="tous-les-events.php?filter=soiree">Soirées</a></li>
+                <li><a href="tous-les-events.php?filter=festival">Festivals</a></li>
                 </ul>
             </div>
 
