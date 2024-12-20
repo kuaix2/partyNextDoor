@@ -87,7 +87,7 @@ $conn->close();
         <div class="container">
             <h1>PARTYNEXTDOOR</h1>
             <h2>TON GUIDE ULTIME</h2>
-            <p>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</p>
+            <h3>TROUVE TA SOIRÉE SELON TES ENVIES ET CRÉE TOI DES SOUVENIRS POUR LA VIE</h3>
             <a href="#events" class="btn" id="learn-more">Tous les événements</a>
         </div>
         <video class="promo-video" autoplay muted loop>
