@@ -43,25 +43,12 @@ if (!$user) {
 </head>
 <body>
 
-<header class="header">
-        <div class="header-content">
-            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="menu-burger">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-dropdown">
-                    <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
-                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
-                    <a href="faq.html" class="menu-item">FAQ</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<nav>
+    <div class="logo">
+        <img src="image/PND.png" alt="Logo">
+    </div>
+    <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
+</nav>
 
 <div class="container">
     <main class="main-content">
