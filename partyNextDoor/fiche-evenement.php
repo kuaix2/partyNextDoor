@@ -7,6 +7,7 @@ $dbname = "bddpartynextdoor";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+
 // Vérification de la connexion
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -29,6 +30,54 @@ $organizer_name = '';
 if ($result->num_rows > 0) {
     $event = $result->fetch_assoc();
     $organizer_name = $event['nom_utilisateur']; // Récupérer le nom de l'organisateur
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buy_ticket'])) {
+    session_start(); // Démarrer la session si ce n'est pas déjà fait
+
+    // Vérifiez si l'utilisateur est connecté
+    if (!isset($_SESSION['user_id'])) {
+        echo "<script>alert('Vous devez être connecté pour acheter un billet.');</script>";
+        header("Location: login.php"); // Rediriger vers la page de connexion
+        exit();
+    }
+
+    $user_id = $_SESSION['user_id']; // Récupérer l'ID utilisateur depuis la session
+
+    $conn->begin_transaction();
+
+    // Sélection des places disponibles
+    $stmt = $conn->prepare("SELECT places_available FROM events WHERE id = ? FOR UPDATE");
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        if ($row['places_available'] > 0) {
+            $new_places = $row['places_available'] - 1;
+
+            // Mise à jour des places disponibles
+            $stmt = $conn->prepare("UPDATE events SET places_available = ? WHERE id = ?");
+            $stmt->bind_param("ii", $new_places, $event_id);
+            $stmt->execute();
+
+            // Enregistrement du billet
+            $stmt = $conn->prepare("INSERT INTO tickets (user_id, event_id, price) VALUES (?, ?, ?)");
+            $stmt->bind_param("iid", $user_id, $event_id, $event['event_price']);
+            $stmt->execute();
+
+            $conn->commit();
+            echo "<script>alert('Votre billet a été acheté avec succès !');</script>";
+        } else {
+            $conn->rollback();
+            echo "<script>alert('Désolé, il n\'y a plus de places disponibles pour cet événement.');</script>";
+        }
+    } else {
+        $conn->rollback();
+        echo "<script>alert('Erreur lors de l\'achat du billet.');</script>";
+    }
 }
 
 $conn->close();
@@ -65,7 +114,7 @@ $conn->close();
                 <div class="menu-icon"></div>
                 <div class="menu-dropdown">
                     <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="php/dashboard.php" class="menu-item">Je suis organisateur</a>
+                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
                     <a href="tous-les-events.php" class="menu-item">Festivals</a>
                     <a href="tous-les-events.php" class="menu-item">Concerts</a>
                     <a href="tous-les-events.php" class="menu-item">Soirées</a>
@@ -86,15 +135,23 @@ $conn->close();
                         <span><strong>Prix :</strong> <?php echo number_format($event['event_price'], 2, ',', ''); ?>€</span>
                         <span><strong>Genres :</strong> <?php echo htmlspecialchars($event['event_tags']); ?></span>
                         <span><strong>Organisateur :</strong> <?php echo htmlspecialchars($organizer_name); ?></span>
-                    </div>
+                        <span><strong>Places restantes :</strong> <?php echo intval($event['places_available']); ?></span>
+
+</div>
 
 
                     <p>
                         <?php echo nl2br(htmlspecialchars($event['event_description'])); ?>
                     </p>
-
+                    
                     <div class="event-buttons">
-                        <a href="#" class="btn btn-primary">Acheter Billet</a>
+                    <?php if ($event['places_available'] > 0): ?>
+        <form method="POST" action="">
+            <button type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
+        </form>
+    <?php else: ?>
+        <p style="color:red;">Événement complet !</p>
+    <?php endif; ?>
                         <?php
                         // Exemple de récupération des informations de l'événement depuis la base de données
                         $event_name = htmlspecialchars($event['event_name']);

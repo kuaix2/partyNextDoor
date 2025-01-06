@@ -32,6 +32,44 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$user) {
     die("Utilisateur non trouvé.");
 }
+
+// Requête pour récupérer les billets de l'utilisateur connecté
+$sqlTickets = "
+    SELECT t.id AS ticket_id, e.event_name, e.event_date, e.event_adresse, e.event_price 
+    FROM tickets t
+    JOIN events e ON t.event_id = e.id
+    WHERE t.user_id = :userId
+";
+$stmtTickets = $pdo->prepare($sqlTickets);
+$stmtTickets->bindParam(':userId', $userId, PDO::PARAM_INT);
+$stmtTickets->execute();
+$tickets = $stmtTickets->fetchAll(PDO::FETCH_ASSOC); // Récupère tous les billets
+
+// Supprimer les billets dont les événements sont passés
+$sql = "
+    DELETE t
+    FROM tickets t
+    JOIN events e ON t.event_id = e.id
+    WHERE e.event_date < CURDATE() AND t.user_id = :userId
+";
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+$stmt->execute();
+
+$sqlTickets = "
+    SELECT t.id AS ticket_id, e.event_name, e.event_date, e.event_adresse, e.event_price 
+    FROM tickets t
+    JOIN events e ON t.event_id = e.id
+    WHERE t.user_id = :userId AND e.event_date >= CURDATE()
+";
+
+$stmtTickets = $pdo->prepare($sqlTickets);
+$stmtTickets->bindParam(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+$stmtTickets->execute();
+$tickets = $stmtTickets->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 
@@ -87,23 +125,33 @@ if (!$user) {
             <a href="modif_profil.php" class="button" onclick="redirectToModifyProfile()">MODIFIER MON PROFIL</a>
         </section>
 
-            <section class="tickets-section card">
-                <h2>MES BILLETS</h2>
-                <div class="ticket-grid">
-                    <button class="ticket-button" onclick="viewTicket('ticket1')">
+        <section class="tickets-section card">
+    <h2>MES BILLETS</h2>
+    <div class="ticket-grid">
+        <?php if (!empty($tickets)): ?>
+            <?php foreach ($tickets as $ticket): ?>
+                <div class="ticket-item">
+                    <button class="ticket-button">
+                    <a href="generate_ticket_pdf.php?ticket_id=<?php echo $ticket['ticket_id']; ?>" class="btn-action" target="_blank">
+    Télécharger
+</a>
+
                         <span class="ticket-icon">🎟️</span>
-                        <span class="ticket-text">Concert Rock - 15/07/2023</span>
-                    </button>
-                    <button class="ticket-button" onclick="viewTicket('ticket2')">
-                        <span class="ticket-icon">🎟️</span>
-                        <span class="ticket-text">Festival Électro - 22/08/2023</span>
-                    </button>
-                    <button class="ticket-button" onclick="viewTicket('ticket3')">
-                        <span class="ticket-icon">🎟️</span>
-                        <span class="ticket-text">Concert Pop - <br> 10/09/2023</span>
+                        <span class="ticket-text">
+                            <?php echo htmlspecialchars($ticket['event_name']); ?> <br>
+                            <?php echo date("d/m/Y", strtotime($ticket['event_date'])); ?> <br>
+                            <?php echo htmlspecialchars($ticket['event_adresse']); ?> <br>
+                            Prix : <?php echo number_format($ticket['event_price'], 2, ',', ''); ?> €
+                        </span>
                     </button>
                 </div>
-                <h2>FAVORIS</h2>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Vous n'avez pas encore acheté de billets.</p>
+        <?php endif; ?>
+    </div>
+
+    <h2>FAVORIS</h2>
                 <div class="favorites">
                     <div class="favorite-item">
                         <div class="favorite-icon" style="background-color: #e9d4f2;">🎭</div>
