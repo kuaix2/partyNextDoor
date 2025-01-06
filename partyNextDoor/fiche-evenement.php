@@ -148,7 +148,7 @@ $conn->close();
                     <div class="event-buttons">
                     <?php if ($event['places_available'] > 0): ?>
         <form method="POST" action="">
-            <button  <a href ="Paiement"></a> type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
+            <button   href ="paiement.php" type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
         </form>
     <?php else: ?>
         <p style="color:red;">Événement complet !</p>

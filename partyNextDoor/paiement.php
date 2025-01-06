@@ -1,47 +1,43 @@
 <?php
-require 'vendor/autoload.php';
+// Connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bddpartynextdoor";
 
-\Stripe\Stripe::setApiKey('sk_test_51QeE1lL2cXgM5tGyuAHIt4yOuYBjlZ7I9MMOe7qTRPZzyNUs7JJz6UXul9dET7Jmh9wEmY9vfYzrGyRXTVsqz1yt00PS5XsOIv');
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-header('Content-Type: application/json');
+// Vérification de la connexion
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$YOUR_DOMAIN = 'localhost';
+// Traitement du formulaire de paiement
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $numero_carte = $_POST['numero_carte'];
+    $date_fin_validite = $_POST['date_fin_validite'];
+    $cryptogramme_visuel = $_POST['cryptogramme_visuel'];
 
-$checkout_session = \Stripe\Checkout\Session::create([
-    'payment_method_types' => ['card'],
-    'line_items' => [[
-        'price_data' => [
-            'currency' => 'eur',
-            'product_data' => [
-                'name' => 'Événement',
-            ],
-            'unit_amount' => 2000, // Montant en centimes (20,00 €)
-        ],
-        'quantity' => 1,
-    ]],
-    'mode' => 'payment',
-    'success_url' => $YOUR_DOMAIN . '/fiche-evenement.php',
-    'cancel_url' => $YOUR_DOMAIN . '/paiement.html',
-]);
+    // Insertion des informations de paiement dans la base de données
+    $sql = "INSERT INTO paiements (numero_carte, date_fin_validite, cryptogramme_visuel) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $numero_carte, $date_fin_validite, $cryptogramme_visuel);
 
-echo json_encode(['id' => $checkout_session->id]);
+    if ($stmt->execute()) {
+        echo "Paiement enregistré avec succès.";
+    } else {
+        echo "Erreur lors de l'enregistrement du paiement: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE HTML>
-<html>
+<html lang="fr">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://js.stripe.com/v3/"></script>
@@ -51,74 +47,30 @@ echo json_encode(['id' => $checkout_session->id]);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
     <link rel="stylesheet" href="css/header.css">
     <title>Paiement</title>
-/* clé publique/*
+</head>
 <body>
-    <h1>Paiement pour Événements</h1>
-    <script>
-        var stripe = Stripe('pk_test_51QeE1lL2cXgM5tGy6Ln2R6a0wmhKlVkNxwJa55WHlFb9sfvXY2mQlKR0foLJBcuG3LdZEeaoqCpT0WCAKdTmUOV900Y7UBzpo6');
+    <div class="picture">
+        <img src="images/logo.png" alt="logo">
+    </div>
+    <form action="paiement.php" method="post">
 
-        document.getElementById('checkout-button').addEventListener('click', function () {
-            fetch('/create-checkout-session.php', {
-                method: 'POST',
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (sessionId) {
-                return stripe.redirectToCheckout({ sessionId: sessionId });
-            })
-            .then(function (result) {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
-        });
-    </script>
+        <div class="form-group">
+            <label>Numéro de Carte</label>
+            <input type="number" name="numero_carte" required>
+        </div>
 
-    /*clé sécurisée/*
+        <div class="form-group">
+            <label>Date de fin de validité (MM/AA)</label>
+            <input type="number" name="date_fin_validite" required>
+        </div>
+
+        <div class="form-group">
+            <label>Cryptogramme visuel</label>
+            <input type="number" name="cryptogramme_visuel" required>
+        </div>
+
+        <button type="submit">Valider</button>
+        <a href="fiche-evenement.php" class="btn">Annuler</a>
+    </form>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
