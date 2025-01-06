@@ -147,12 +147,14 @@ $conn->close();
                     
                     <div class="event-buttons">
                     <?php if ($event['places_available'] > 0): ?>
-        <form method="POST" action="">
-            <button   href ="paiement.php" type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
-        </form>
-    <?php else: ?>
-        <p style="color:red;">Événement complet !</p>
-    <?php endif; ?>
+    <form action="paiement.php" method="get">
+        <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
+        <button type="submit" class="btn btn-primary">Acheter un billet</button>
+    </form>
+<?php else: ?>
+    <p style="color:red;">Événement complet !</p>
+<?php endif; ?>
+
                         <?php
                         // Exemple de récupération des informations de l'événement depuis la base de données
                         $event_name = htmlspecialchars($event['event_name']);

@@ -12,19 +12,41 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Récupérer l'ID de l'événement depuis l'URL
+$event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
+if ($event_id > 0) {
+    // Vérifier que l'événement existe
+    $sql = "SELECT * FROM events WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        die("Événement introuvable.");
+    }
+
+    $stmt->close();
+} else {
+    die("Aucun ID d'événement fourni.");
+}
+
 // Traitement du formulaire de paiement
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero_carte = $_POST['numero_carte'];
     $date_fin_validite = $_POST['date_fin_validite'];
     $cryptogramme_visuel = $_POST['cryptogramme_visuel'];
 
-    // Insertion des informations de paiement dans la base de données
-    $sql = "INSERT INTO paiements (numero_carte, date_fin_validite, cryptogramme_visuel) VALUES (?, ?, ?)";
+    // Associer le paiement à l'événement
+    $sql = "INSERT INTO paiements (event_id, numero_carte, date_fin_validite, cryptogramme_visuel) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $numero_carte, $date_fin_validite, $cryptogramme_visuel);
+    $stmt->bind_param("isss", $event_id, $numero_carte, $date_fin_validite, $cryptogramme_visuel);
 
     if ($stmt->execute()) {
         echo "Paiement enregistré avec succès.";
+        // Redirection vers une page de confirmation
+        header("Location: success.php?event_id=$event_id");
+        exit();
     } else {
         echo "Erreur lors de l'enregistrement du paiement: " . $stmt->error;
     }
@@ -34,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE HTML>
 <html lang="fr">
