@@ -5,13 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'inscription</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lcagq8qAAAAAHKzx912oZfWqfnI-JOOSKyOFcdQ"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/inscription.css">
-
 </head>
 
 <body>
-    <form action="php/inscription.php" method="post">
+    <script>
+        function onSubmit(token) {
+            document.getElementById("demo-form").submit();
+        }
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Lcagq8qAAAAAHKzx912oZfWqfnI-JOOSKyOFcdQ', { action: 'submit' }).then(function(token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+
+    <form id="demo-form" action="php/inscription.php" method="post">
         <div class="form-container">
             <h1><strong><em>PARTYNEXTDOOR</em></strong></h1>
             <h2><strong>FORMULAIRE D'INSCRIPTION</strong></h2>
@@ -49,15 +61,16 @@
                 </ul>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="button-inscription" disabled id="submit-btn">S'inscrire</button>
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+            <button type="submit" class="g-recaptcha" data-sitekey="6Lcagq8qAAAAAHKzx912oZfWqfnI-JOOSKyOFcdQ" data-callback='onSubmit' data-action='submit'>
+                s'inscrire
+            </button>
         </div>
     </form>
 
     <script>
         // Sélection des éléments
         const passwordInput = document.getElementById('password');
-        const submitButton = document.getElementById('submit-btn');
         const lengthConstraint = document.getElementById('length-constraint');
         const letterConstraint = document.getElementById('letter-constraint');
         const numberConstraint = document.getElementById('number-constraint');
@@ -78,9 +91,6 @@
             updateConstraint(letterConstraint, hasLetter);
             updateConstraint(numberConstraint, hasNumber);
             updateConstraint(specialConstraint, hasSpecial);
-
-            // Activer ou désactiver le bouton de soumission
-            submitButton.disabled = !(isLongEnough && hasLetter && hasNumber && hasSpecial);
         }
 
         // Mettre à jour les contraintes (✔ ou ✖)
