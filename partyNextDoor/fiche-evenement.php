@@ -88,6 +88,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.stripe.com/v3/"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/page-event.css">
@@ -147,7 +148,7 @@ $conn->close();
                     <div class="event-buttons">
                     <?php if ($event['places_available'] > 0): ?>
         <form method="POST" action="">
-            <button type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
+            <button  <a href ="Paiement"></a> type="submit" name="buy_ticket" class=" btn btn-primary">Acheter un billet</button>
         </form>
     <?php else: ?>
         <p style="color:red;">Événement complet !</p>
@@ -218,3 +219,6 @@ $conn->close();
     
 </body>
 </html>
+
+
+
