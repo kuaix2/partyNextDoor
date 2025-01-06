@@ -12,6 +12,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Supprimer les événements dont la date est dépassée
+$currentDate = date("Y-m-d H:i:s");
+$deleteExpiredEvents = "DELETE FROM events WHERE event_date < ?";
+$stmt = $conn->prepare($deleteExpiredEvents);
+$stmt->bind_param("s", $currentDate);
+$stmt->execute();
+$stmt->close();
+
+
 // Récupérer la requête de recherche si présente
 $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
 $filterTag = isset($_GET['filter']) ? $_GET['filter'] : 'all'; // Récupérer le filtre sélectionné
