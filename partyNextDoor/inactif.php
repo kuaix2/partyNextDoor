@@ -12,8 +12,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Définir la période d'inactivité en secondes (1 minute)
-$inactive_period = 60; // 1 minute en secondes
+// Mettre à jour l'horodatage de l'utilisateur (ex: lors de la connexion ou de l'action)
+$user_id = 1; // ID de l'utilisateur (à remplacer par l'ID réel de l'utilisateur)
+$update_sql = "UPDATE utilisateur SET last_activity = NOW() WHERE id = ?";
+$update_stmt = $conn->prepare($update_sql);
+$update_stmt->bind_param("i", $user_id);
+$update_stmt->execute();
+
+// Définir la période d'inactivité en secondes (5 minutes)
+$inactive_period = 300; // 5 minutes en secondes
 
 // Requête SQL pour sélectionner les utilisateurs inactifs
 $sql = "SELECT id FROM utilisateur WHERE TIMESTAMPDIFF(SECOND, last_activity, NOW()) > ?";
