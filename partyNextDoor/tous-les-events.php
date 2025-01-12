@@ -2,7 +2,7 @@
 // Connexion à la base de données
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "bddpartynextdoor";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

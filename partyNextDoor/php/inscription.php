@@ -2,10 +2,10 @@
 
 $servername = "localhost"; // Hôte de la base de données
 $username = "root"; // Nom d'utilisateur de la base de données
-$password = ""; // Mot de passe de la base de données
+$password = "root"; // Mot de passe de la base de données
 $dbname = "bddpartynextdoor"; // Nom de la base de données
 
-// Créer une connexion
+// Créer une connexions
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Vérifier la connexion
