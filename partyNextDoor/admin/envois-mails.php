@@ -42,7 +42,7 @@
                     // Contenu de l'email
                     $mail->isHTML(true);
                     $mail->Subject = 'Avertissement : Inactivité sur votre compte';
-                    $mail->Body    = "Bonjour,<br><br>Nous vous informons que vous n'avez pas utilisé votre compte depuis plus de 5 minutes. Ce message est un avertissement. Si vous ne vous reconnectez pas dans les 5 prochaines minutes, votre compte sera supprimé.<br><br>Cordialement,<br>Équipe PartyNextDoor.";
+                    $mail->Body    = "Bonjour,<br><br>Nous vous informons que cela fait longtemps que vous avez utiliser votre compte Partynextdoor.Ce message est un avertissement. Si vous ne vous reconnectez pas , votre compte sera supprimé.<br><br>Cordialement,<br>Équipe PartyNextDoor.";
 
                     $mail->send();
                     $message = "Avertissement envoyé à l'utilisateur.";
