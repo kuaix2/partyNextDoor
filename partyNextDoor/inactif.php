@@ -23,7 +23,7 @@ $update_stmt->execute();
 $inactive_period = 300; // 5 minutes en secondes
 
 // Requête SQL pour sélectionner les utilisateurs inactifs
-$sql = "SELECT id FROM utilisateur WHERE TIMESTAMPDIFF(SECOND, last_activity, NOW()) > ?";
+$sql = "SELECT id, email FROM utilisateur WHERE TIMESTAMPDIFF(SECOND, last_activity, NOW()) > ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $inactive_period);
 $stmt->execute();
@@ -40,6 +40,21 @@ if ($result->num_rows > 0) {
         // Vérifier si la suppression a réussi
         if ($delete_stmt->affected_rows > 0) {
             echo "Utilisateur avec ID " . $row['id'] . " supprimé avec succès.<br>";
+
+            // Envoi de l'email de notification
+            $to = $row['email'];
+            $subject = "Notification : Suppression de votre compte";
+            $message = "Bonjour,\n\nVotre compte a été supprimé car vous êtes resté inactif pendant plus de 5 minutes.\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\nCordialement,\nL'équipe PartyNextDoor.";
+            $headers = "From: no-reply@partynextdoor.com\r\n";
+            $headers .= "Reply-To: support@partynextdoor.com\r\n";
+            $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+            // Envoi de l'email
+            if (mail($to, $subject, $message, $headers)) {
+                echo "Email de notification envoyé à l'utilisateur avec ID " . $row['id'] . ".<br>";
+            } else {
+                echo "Erreur lors de l'envoi de l'email à l'utilisateur avec ID " . $row['id'] . ".<br>";
+            }
         } else {
             echo "Erreur lors de la suppression de l'utilisateur avec ID " . $row['id'] . ".<br>";
         }
