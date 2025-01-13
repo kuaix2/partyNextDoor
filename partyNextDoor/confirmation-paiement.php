@@ -47,16 +47,22 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmation de Paiement</title>
+    <link rel="stylesheet" href="css/confirmation_paiement.css">
 </head>
 <body>
+<div class="container">
     <h1>Confirmation de Paiement</h1>
-    <p>Merci pour votre paiement !</p>
+    <p class="thank-you">Merci pour votre paiement !</p>
+    <div class="ticket-info">
     <p><strong>Événement :</strong> <?php echo htmlspecialchars($ticket['event_name']); ?></p>
     <p><strong>Date :</strong> <?php echo htmlspecialchars($ticket['event_date']); ?></p>
     <p><strong>Prix :</strong> <?php echo number_format($ticket['event_price'], 2, ',', ''); ?> €</p>
     <p><strong>ID du billet :</strong> <?php echo htmlspecialchars($ticket['ticket_id']); ?></p>
     <p><strong>Nom de l'utilisateur :</strong> <?php echo htmlspecialchars($ticket['nom_utilisateur']); ?></p>
-
-    <a href="tous-les-events.php">Retour aux événements</a>
+    </div>
+    <div class="button-container">
+            <a href="tous-les-events.php" class="btn">Retour aux événements</a>
+        </div>
+    </div>
 </body>
 </html>
