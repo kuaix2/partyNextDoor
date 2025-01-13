@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true)
 // Connexion à la base de données
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "bddpartynextdoor";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -4,7 +4,7 @@ session_start(); // Démarre la session ici, avant tout code
 // Informations de connexion à la base de données
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "bddpartynextdoor";
 
 // Connexion à la base de données
