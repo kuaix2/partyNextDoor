@@ -67,6 +67,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         <p>Seuls les administrateurs peuvent voir cette page.</p>
         
         <a href="politique-editeur.php" class="editor-btn">Accéder à l'éditeur de politique</a>
+        <a href="supprimer-utilisateurs.php" class="editor-btn">Supprimer des utilisateurs</a>
         <!-- Des boutons à ajouter pour d'autres fonctionnalités (comme supprime les evenements...) -->
         <a href="supprimer-event.php" class="editor-btn">Supprimer les evenements</a>
          
