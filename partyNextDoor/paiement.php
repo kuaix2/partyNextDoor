@@ -102,14 +102,16 @@ $conn->close();
     <title>Paiement</title>
 </head>
 <body>
+    <div class="main-container">
+        <div class="payment-info">
     <h1>Paiement pour l'événement : <?php echo htmlspecialchars($event['event_name']); ?></h1>
     <p>Date : <?php echo htmlspecialchars($event['event_date']); ?></p>
     <p>Prix : <?php echo number_format($event['event_price'], 2, ',', ''); ?> €</p>
     <p>Places disponibles : <?php echo htmlspecialchars($event['places_available']); ?></p>
-
+    </div>
     <form action="paiement.php" method="post">
     <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
-    <div class="container">
+    <div class="payment-fields-container">
 <div class="form-group">
         <label>Numéro de Carte</label>
         <input type="text" name="numero_carte"  placeholder="Numéro de carte"required>
@@ -124,7 +126,8 @@ $conn->close();
         <label>Cryptogramme visuel</label>
         <input type="text" name="cryptogramme_visuel"  placeholder="Cryptographie(CVV/CVC)"required>
     </div>
-</div>
+    </div>
+
 
     
 </form>
@@ -134,5 +137,6 @@ $conn->close();
         <button type="submit" name="confirm_payment">Valider le paiement</button>
         <a href="fiche-evenement.php?id=<?php echo $event_id; ?>">Annuler</a>
     </form>
+    </div>
 </body>
 </html>
