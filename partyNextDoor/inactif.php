@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Mettre à jour l'horodatage de l'utilisateur (ex: lors de la connexion ou de l'action)
-$user_id = 1; // ID de l'utilisateur (à remplacer par l'ID réel de l'utilisateur)
+$userId = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur depuis la session
 $update_sql = "UPDATE utilisateur SET last_activity = NOW() WHERE id = ?";
 $update_stmt = $conn->prepare($update_sql);
 $update_stmt->bind_param("i", $user_id);
