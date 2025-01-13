@@ -88,7 +88,6 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://js.stripe.com/v3/"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/page-event.css">
@@ -147,14 +146,14 @@ $conn->close();
                     
                     <div class="event-buttons">
                     <?php if ($event['places_available'] > 0): ?>
-    <form action="paiement.php" method="get">
-        <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
-        <button type="submit" class="btn btn-primary">Acheter un billet</button>
-    </form>
-<?php else: ?>
-    <p style="color:red;">Événement complet !</p>
-<?php endif; ?>
+                        <form action="paiement.php" method="post">
+    <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
+    <button type="submit" class="btn btn-primary">Acheter un billet</button>
+</form>
 
+    <?php else: ?>
+        <p style="color:red;">Événement complet !</p>
+    <?php endif; ?>
                         <?php
                         // Exemple de récupération des informations de l'événement depuis la base de données
                         $event_name = htmlspecialchars($event['event_name']);
@@ -221,6 +220,3 @@ $conn->close();
     
 </body>
 </html>
-
-
-
