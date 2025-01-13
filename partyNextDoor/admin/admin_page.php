@@ -70,6 +70,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         <a href="supprimer-utilisateurs.php" class="editor-btn">Supprimer des utilisateurs</a>
         <!-- Des boutons à ajouter pour d'autres fonctionnalités (comme supprime les evenements...) -->
         <a href="supprimer-event.php" class="editor-btn">Supprimer les evenements</a>
+        <a href="Envois_mails " class="editor-btn">Envois de mail</a>
          
         <a href="admin_login.php?logout=true" class="logout-btn">Se déconnecter</a>
         
