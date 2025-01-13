@@ -4,17 +4,17 @@ body {
     box-sizing: border-box;
     font-family: 'Bebas Neue', sans-serif;
     background: linear-gradient(135deg, #ece9f2, #e9d4f2, #f5ccd5, #fcd7aa, #ff9e6a, #ff6f00);
-    background-size: 400% 400%;
+    background-attachment: fixed; /* Fixe le dégradé pour un effet continu */
+    background-size: cover; /* Assure que le dégradé couvre toute la page */
 }
 
-
-/* Section principale */
 .section {
     height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
+    background: transparent; /* Supprime tout fond de section */
 }
 
 .container {
@@ -37,7 +37,7 @@ h1 {
 
 h2 {
     margin-top: 0;
-} 
+}
 
 h3 {
     margin: 0;
@@ -76,10 +76,9 @@ h3 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
 .events {
     padding: 80px 24px;
-    background-color: #fff;
+    background: transparent; /* Supprime tout fond blanc */
 }
 
 .events-header {
@@ -100,16 +99,16 @@ h3 {
 }
 
 .event-card {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.8); /* Fond translucide pour un contraste lisible */
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 1px solid #eee;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .event-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .event-image {
@@ -150,7 +149,7 @@ h3 {
 }
 
 .tag {
-    background: #f5f5f5;
+    background: rgba(245, 245, 245, 0.8); /* Translucide pour s'intégrer au fond */
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
@@ -158,13 +157,13 @@ h3 {
     color: #666;
 }
 
-/* Deuxième section */
 .section-2 {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background: transparent; /* Supprime tout fond différent */
 }
 
 .section-2 .container {
@@ -203,7 +202,6 @@ h3 {
     left: 200px;
 }
 
-/* Troisième section */
 .section-3 {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -213,6 +211,7 @@ h3 {
     align-items: center;
     text-align: center;
     color: rgb(0, 0, 0);
+    background: transparent; /* Supprime tout fond différent */
 }
 
 .section-3 h1 {
@@ -225,9 +224,9 @@ h3 {
     margin: 0;
     font-size: 25px;
     color: #000000;
-    text-align: center; 
-    max-width: 900px; 
-    margin: 20px auto; 
+    text-align: center;
+    max-width: 900px;
+    margin: 20px auto;
 }
 
 .section-3 .button {
@@ -257,6 +256,7 @@ footer {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #000;
+    background: transparent; /* Supprime tout fond différent */
 }
 
 .copyright-text {
@@ -265,6 +265,4 @@ footer {
     text-align: center;
     margin: 0;
     padding: 10px 0;
-    background-color: #f8f8f8;
 }
-
