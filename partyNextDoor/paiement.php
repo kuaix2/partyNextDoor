@@ -12,17 +12,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Récupérer l'ID de l'événement depuis l'URL
-$event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
+// Récupérer l'ID de l'événement depuis le formulaire ou l'URL
+$event_id = isset($_POST['event_id']) ? intval($_POST['event_id']) : (isset($_GET['event_id']) ? intval($_GET['event_id']) : 0);
+
 if ($event_id > 0) {
-    // Vérifier que l'événement existe
+    // Requête pour récupérer les informations de l'événement
     $sql = "SELECT * FROM events WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $event_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows === 0) {
+    if ($result->num_rows > 0) {
+        $event = $result->fetch_assoc();
+    } else {
         die("Événement introuvable.");
     }
 
@@ -31,69 +34,103 @@ if ($event_id > 0) {
     die("Aucun ID d'événement fourni.");
 }
 
-// Traitement du formulaire de paiement
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $numero_carte = $_POST['numero_carte'];
-    $date_fin_validite = $_POST['date_fin_validite'];
-    $cryptogramme_visuel = $_POST['cryptogramme_visuel'];
+// Vérifiez si l'utilisateur est connecté
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-    // Associer le paiement à l'événement
-    $sql = "INSERT INTO paiements (event_id, numero_carte, date_fin_validite, cryptogramme_visuel) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isss", $event_id, $numero_carte, $date_fin_validite, $cryptogramme_visuel);
+$user_id = $_SESSION['user_id']; // Récupérer l'ID utilisateur depuis la session
 
-    if ($stmt->execute()) {
-        echo "Paiement enregistré avec succès.";
-        // Redirection vers une page de confirmation
-        header("Location: success.php?event_id=$event_id");
-        exit();
-    } else {
-        echo "Erreur lors de l'enregistrement du paiement: " . $stmt->error;
+// Traitement du paiement
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['confirm_payment'])) {
+    $conn->begin_transaction();
+
+    try {
+        // Vérifier les places disponibles
+        $stmt = $conn->prepare("SELECT places_available FROM events WHERE id = ? FOR UPDATE");
+        $stmt->bind_param("i", $event_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            if ($row['places_available'] > 0) {
+                $new_places = $row['places_available'] - 1;
+
+                // Mettre à jour les places disponibles
+                $stmt = $conn->prepare("UPDATE events SET places_available = ? WHERE id = ?");
+                $stmt->bind_param("ii", $new_places, $event_id);
+                $stmt->execute();
+
+                // Insérer le billet dans la table tickets
+                $stmt = $conn->prepare("INSERT INTO tickets (user_id, event_id, price) VALUES (?, ?, ?)");
+                $stmt->bind_param("iid", $user_id, $event_id, $event['event_price']);
+                $stmt->execute();
+
+                $ticket_id = $conn->insert_id;
+
+                // Valider la transaction
+                $conn->commit();
+
+                // Rediriger vers la page de confirmation
+                header("Location: confirmation-paiement.php?ticket_id=$ticket_id");
+                exit();
+            } else {
+                throw new Exception("Désolé, il n'y a plus de places disponibles pour cet événement.");
+            }
+        } else {
+            throw new Exception("Événement introuvable.");
+        }
+    } catch (Exception $e) {
+        $conn->rollback();
+        die("Erreur : " . $e->getMessage());
     }
-
-    $stmt->close();
 }
 
 $conn->close();
 ?>
 
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://js.stripe.com/v3/"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/page-event.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
-    <link rel="stylesheet" href="css/header.css">
     <title>Paiement</title>
 </head>
 <body>
-    <div class="picture">
-        <img src="images/logo.png" alt="logo">
-    </div>
+    <h1>Paiement pour l'événement : <?php echo htmlspecialchars($event['event_name']); ?></h1>
+    <p>Date : <?php echo htmlspecialchars($event['event_date']); ?></p>
+    <p>Prix : <?php echo number_format($event['event_price'], 2, ',', ''); ?> €</p>
+    <p>Places disponibles : <?php echo htmlspecialchars($event['places_available']); ?></p>
+
     <form action="paiement.php" method="post">
+    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
-        <div class="form-group">
-            <label>Numéro de Carte</label>
-            <input type="number" name="numero_carte" required>
-        </div>
+    <div class="form-group">
+        <label>Numéro de Carte</label>
+        <input type="text" name="numero_carte" required>
+    </div>
 
-        <div class="form-group">
-            <label>Date de fin de validité (MM/AA)</label>
-            <input type="number" name="date_fin_validite" required>
-        </div>
+    <div class="form-group">
+        <label>Date de fin de validité (MM/AA)</label>
+        <input type="text" name="date_fin_validite" required>
+    </div>
 
-        <div class="form-group">
-            <label>Cryptogramme visuel</label>
-            <input type="number" name="cryptogramme_visuel" required>
-        </div>
+    <div class="form-group">
+        <label>Cryptogramme visuel</label>
+        <input type="text" name="cryptogramme_visuel" required>
+    </div>
 
-        <button type="submit">Valider</button>
-        <a href="fiche-evenement.php" class="btn">Annuler</a>
+    
+</form>
+
+    <form action="paiement.php" method="post">
+        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+        <button type="submit" name="confirm_payment">Valider le paiement</button>
+        <a href="fiche-evenement.php?id=<?php echo $event_id; ?>">Annuler</a>
     </form>
 </body>
 </html>
