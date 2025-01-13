@@ -1,74 +1,131 @@
+/* Mise en forme globale */
 body {
-    font-family: 'Bebas Neue', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
+    align-items: center; /* Centrer le contenu verticalement */
+    height: 100vh; /* Utiliser toute la hauteur de la page */
+    flex-direction: column; /* Disposition verticale */
+}
+
+/* Conteneur principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-
-.picture {
     text-align: center;
-    margin-bottom: 20px;
-    border-radius: 0%;
-}
-
-.picture img {
-    width: 150px;
-}
-
-form {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 
+/* Informations de paiement */
+.payment-info {
+    margin-bottom: 30px;
+}
+
+.payment-info h1 {
+    font-size: 1.6rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.payment-info p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Conteneur des champs de paiement avec un cadre */
+.payment-fields-container {
+    width: 100%;
+    padding: 20px;
+    border: 2px solid #ccc; /* Bordure autour des champs */
+    border-radius: 10px; /* Coins arrondis */
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* Style pour les champs de formulaire */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
+    font-size: 0.9rem;
+    color: #333;
     display: block;
     margin-bottom: 5px;
-    font-size: 14px;
-    color: #333;
 }
 
 .form-group input {
     width: 100%;
     padding: 10px;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
 }
 
-button {
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Bouton de validation du paiement */
+button[type="submit"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background-color: #007bff;
+    color: white;
+    font-size: 1.1rem;
     border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.btn {
+/* Lien "Annuler" */
+a {
     display: block;
     text-align: center;
     margin-top: 10px;
+    font-size: 1rem;
     color: #007bff;
     text-decoration: none;
 }
 
-.btn:hover {
+a:hover {
     text-decoration: underline;
 }
+
+/* Responsivité pour les petits écrans */
+@media (max-width: 600px) {
+    .main-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+}
+

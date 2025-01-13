@@ -98,6 +98,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/paiement.css">
     <title>Paiement</title>
 </head>
 <body>
@@ -108,21 +109,22 @@ $conn->close();
 
     <form action="paiement.php" method="post">
     <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
-
-    <div class="form-group">
+    <div class="container">
+<div class="form-group">
         <label>Numéro de Carte</label>
-        <input type="text" name="numero_carte" required>
+        <input type="text" name="numero_carte"  placeholder="Numéro de carte"required>
     </div>
 
     <div class="form-group">
         <label>Date de fin de validité (MM/AA)</label>
-        <input type="text" name="date_fin_validite" required>
+        <input type="text" name="date_fin_validite"  placeholder="MM/AA"required>
     </div>
 
     <div class="form-group">
         <label>Cryptogramme visuel</label>
-        <input type="text" name="cryptogramme_visuel" required>
+        <input type="text" name="cryptogramme_visuel"  placeholder="Cryptographie(CVV/CVC)"required>
     </div>
+</div>
 
     
 </form>
