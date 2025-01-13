@@ -68,6 +68,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         
         <a href="politique-editeur.php" class="editor-btn">Accéder à l'éditeur de politique</a>
         <!-- Des boutons à ajouter pour d'autres fonctionnalités (comme supprime les evenements...) -->
+        <a href="supprimer-event.php" class="editor-btn">Supprimer les evenements</a>
          
         <a href="admin_login.php?logout=true" class="logout-btn">Se déconnecter</a>
         
