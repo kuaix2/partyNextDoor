@@ -68,7 +68,6 @@ include 'navigation/header.php';
     <section class="events" id="events">
         <div class="events-header">
             <h2>ÉVÉNEMENTS À LA UNE</h2>
-            <a href="tous-les-events.php" class="btn-voir-plus">Voir plus</a>
         </div>
         <div class="events-grid">
             <?php if (!empty($events)): ?>
@@ -94,6 +93,9 @@ include 'navigation/header.php';
                 <p>Aucun événement disponible.</p>
             <?php endif; ?>
         </div>
+        <div class="btn-wrapper">
+        <a href="tous-les-events.php" class="btn-see-more">Voir plus</a>
+    </div>
     </section>
 
      <!-- Deuxième section -->
