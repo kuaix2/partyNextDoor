@@ -1,5 +1,4 @@
 body {
-    background-image: url("../image/back.png" );
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
@@ -8,7 +7,23 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
+    background: linear-gradient(135deg, #ece9f2, #e9d4f2, #f5ccd5, #fcd7aa, #ff9e6a, #ff6f00);
+        background-size: 400% 400%;
+        animation: gradientAnimation 10s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
 
 /* Pour le form */
 .form-container {
