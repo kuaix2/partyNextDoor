@@ -34,7 +34,7 @@
 
             <!-- Forgot Password Link -->
             <div class="forgot-password">
-                <a href="mot_de_passe_oublié1.html">Mot de passe oublié ?</a>
+                <a href="mdp_oublie/mdp1.php">Mot de passe oublié ?</a>
             </div>
 
             <!-- Submit Button -->

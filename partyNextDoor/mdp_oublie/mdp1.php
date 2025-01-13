@@ -88,7 +88,7 @@
 
         $servername = "localhost";
         $username = "root";
-        $password = "root";
+        $password = "";
         $dbname = "bddpartynextdoor";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
