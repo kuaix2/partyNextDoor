@@ -12,17 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];  // Supposons que l'ID de l'utilisateur est stocké dans la session
 
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bddpartynextdoor";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-if ($conn->connect_error) {
-    die("Connexion échouée : " . $conn->connect_error);
-}
+include 'database/db_conn.php';
 
 // Gérer l'envoi du formulaire pour ajouter l'événement à la base de données
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_name'])) {
@@ -102,25 +92,9 @@ $conn->close();
 </head>
 <body>
 
-<header class="header">
-        <div class="header-content">
-            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="menu-burger">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-dropdown">
-                    <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
-                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
-                    <a href="faq.html" class="menu-item">FAQ</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<?php 
+include 'navigation/header.php';
+?>
 
   <div class="dashboard-container">
     <h1>Tableau de bord organisateur</h1>
@@ -199,4 +173,9 @@ $conn->close();
     </div>
   </div>
 </body>
+
+<?php 
+include 'navigation/footer.php';
+?>
+
 </html>
