@@ -77,7 +77,6 @@ $result = $conn->query("SELECT * FROM events ORDER BY event_date ASC");
                 <th>Date</th>
                 <th>Prix</th>
                 <th>Tags</th>
-                <th>Image</th>
                 <th>Description</th>
                 <th>Places Disponibles</th>
                 <th>Action</th>
@@ -92,9 +91,6 @@ $result = $conn->query("SELECT * FROM events ORDER BY event_date ASC");
                     <td><?= $row['event_date'] ?></td>
                     <td><?= number_format($row['event_price'], 2) ?> €</td>
                     <td><?= htmlspecialchars($row['event_tags'] ?? "Aucun") ?></td>
-                    <td>
-                        <img src="<?= htmlspecialchars($row['event_image']) ?>" alt="Image de l'événement">
-                    </td>
                     <td><?= htmlspecialchars($row['event_description'] ?? "Aucune description") ?></td>
                     <td><?= $row['places_available'] ?? "Non spécifié" ?></td>
                     <td>

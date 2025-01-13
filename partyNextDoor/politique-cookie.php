@@ -1,14 +1,5 @@
 <?php
-$host = 'localhost';
-$dbname = 'bddpartynextdoor';
-$username = 'root';
-$password = '';
-
-$conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database/db_conn.php';
 
 $page_name = 'Cookies';
 $sql = "SELECT content FROM multiple_content WHERE page_name = ?";

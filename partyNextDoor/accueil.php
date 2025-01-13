@@ -123,9 +123,7 @@ include 'navigation/header.php';
     </div>
 
 <?php 
-
 include 'navigation/footer.php';
-
 ?>
     
 <script>

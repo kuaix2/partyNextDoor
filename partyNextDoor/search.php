@@ -1,11 +1,6 @@
 <?php
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bddpartynextdoor";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+include 'database/db_conn.php';
 
 // Vérification de la connexion
 if ($conn->connect_error) {
@@ -52,32 +47,9 @@ $conn->close();
 </head>
 <body>
     <!-- Barre de navigation -->
-    <header class="header">
-        <div class="header-content">
-            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="search-bar">
-                <form method="GET" action="search.php">
-                    <input type="text" name="q" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu" value="<?php echo htmlspecialchars($searchQuery); ?>">
-                    <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <div class="menu-burger">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-dropdown">
-                    <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
-                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
-                    <a href="faq.html" class="menu-item">FAQ</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
+    <?php 
+include 'navigation/header.php';
+?>
     <!-- Résultats de la recherche -->
     <section class="events" id="events">
         <div class="events-header">
@@ -109,41 +81,8 @@ $conn->close();
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-nav">
-                <div class="footer-section">
-                    <h4>DÉCOUVRIR</h4>
-                    <ul>
-                        <li><a href="tous-les-events.php">Concerts</a></li>
-                        <li><a href="tous-les-events.php">Soirées</a></li>
-                        <li><a href="tous-les-events.php">Festivals</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>AIDE</h4>
-                    <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>LÉGAL</h4>
-                    <ul>
-                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                        <li><a href="politique-cookie.php">Cookies</a></li>
-                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+    <?php 
+include 'navigation/footer.php';
+?>
 </body>
 </html>

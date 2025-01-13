@@ -83,17 +83,13 @@ $tickets = $stmtTickets->fetchAll(PDO::FETCH_ASSOC);
     <title>PARTYNEXTDOOR - Profil</title>
     <link rel="stylesheet" href="css/profil.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/header.css">
     
 </head>
 <body>
 
-<nav>
-    <div class="logo">
-        <img src="image/PND.png" alt="Logo">
-    </div>
-    <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
-</nav>
+<?php 
+include 'navigation/header.php';
+?>
 
 <div class="container">
     <main class="main-content">
@@ -196,21 +192,6 @@ $tickets = $stmtTickets->fetchAll(PDO::FETCH_ASSOC);
 
 
     <script>
-        function toggleSettings() {
-            const menu = document.getElementById('settingsMenu');
-            menu.classList.toggle('active');
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('settingsMenu');
-            const toggle = document.querySelector('.settings-toggle');
-            
-            if (!menu.contains(event.target) && event.target !== toggle) {
-                menu.classList.remove('active');
-            }
-        });
-
         function viewTicket(ticketId) {
             // This function will be called when a ticket button is clicked
             alert(`Affichage du billet: ${ticketId}`);
@@ -222,43 +203,9 @@ $tickets = $stmtTickets->fetchAll(PDO::FETCH_ASSOC);
         }
     </script>
 
-    <!-- Footer -->
-    <footer class="footer">
-    <div class="footer-content">
-        <div class="footer-nav">
-
-            <div class="footer-section">
-                <h4>DÉCOUVRIR</h4>
-                <ul>
-                    <li><a href="tous-les-events.html">Concerts</a></li>
-                    <li><a href="tous-les-events.html">Soirées</a></li>
-                    <li><a href="tous-les-events.html">Festivals</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>AIDE</h4>
-                <ul>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>LÉGAL</h4>
-                <ul>
-                    <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                    <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                    <li><a href="politique-cookie.php">Cookies</a></li>
-                    <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
-        </div>
-    </div>
-</footer>
+<?php 
+include 'navigation/footer.php';
+?>
 
 </body>
 </html>
