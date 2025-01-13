@@ -13,17 +13,17 @@ body {
 
 /* Conteneur principal */
 .main-container {
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #fff;
-    border-radius: 10px; /* Coins arrondis */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
     padding: 30px;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     box-sizing: border-box;
 }
 

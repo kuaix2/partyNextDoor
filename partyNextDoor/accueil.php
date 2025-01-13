@@ -1,5 +1,6 @@
 <?php
 
+
 session_start();
 
 // Vérifier si l'utilisateur est connecté et rediriger vers la page de connexion si l'utilisateur n'est pas connecté
@@ -8,18 +9,7 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true)
     exit();
 }
 
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bddpartynextdoor";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database/db_conn.php';
 
 // Récupérer la requête de recherche si présente
 $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
@@ -47,6 +37,7 @@ if ($result->num_rows > 0) {
     }
 }
 
+include 'navigation/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -60,37 +51,11 @@ if ($result->num_rows > 0) {
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/accueil.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/cookies.css">
 
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <header class="header">
-        <div class="header-content">
-            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="search-bar">
-               <input type="text" class="search-input" placeholder="Rechercher un évènement, artiste ou lieu" id="searchInput">
-            </div>
-            <div class="menu-burger">
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-icon"></div>
-                <div class="menu-dropdown">
-                    <a href="profil.php" class="menu-item">Mon profil</a>
-                    <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
-                    <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
-                    <a href="faq.html" class="menu-item">FAQ</a>
-                    <a href="php/connexion_verif.php?logout=true">Se déconnecter</a>
 
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- Première section -->
     <div class="section">
@@ -165,45 +130,12 @@ if ($result->num_rows > 0) {
         <button id="decline-cookies">Refuser</button>
     </div>
 
-    <!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-nav">
+<?php 
 
-            <div class="footer-section">
-                <h4>DÉCOUVRIR</h4>
-                <ul>
-                <li><a href="tous-les-events.php?filter=concert">Concerts</a></li>
-                <li><a href="tous-les-events.php?filter=soiree">Soirées</a></li>
-                <li><a href="tous-les-events.php?filter=festival">Festivals</a></li>
-                </ul>
-            </div>
+include 'navigation/footer.php';
 
-            <div class="footer-section">
-                <h4>AIDE</h4>
-                <ul>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>LÉGAL</h4>
-                <ul>
-                    <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                    <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                    <li><a href="politique-cookie.php">Cookies</a></li>
-                    <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            <p class="copyright-text">© 2024 PartyNextDoor. Tous droits réservés.</p>
-        </div>
-
-    </div>
-</footer>
-
+?>
+    
 <script>
     document.getElementById('searchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {

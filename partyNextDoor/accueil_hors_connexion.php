@@ -1,16 +1,5 @@
 <?php
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bddpartynextdoor";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database/db_conn.php';
 
 // Récupérer la requête de recherche si présente
 $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
