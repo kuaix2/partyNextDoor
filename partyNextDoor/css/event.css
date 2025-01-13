@@ -246,6 +246,7 @@ a {
 .filter-buttons {
     display: flex;
     justify-content: center;
+    margin-top: 80px; /* Ajoute de l'espace sous la navbar */
     margin-bottom: 20px;
 }
 
