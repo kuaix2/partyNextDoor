@@ -1,16 +1,5 @@
 <?php
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bddpartynextdoor";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database/db_conn.php';
 
 // Récupérer les billets en revente avec l'image de l'événement
 $sql = "
@@ -47,14 +36,9 @@ $conn->close();
     <div class="gradient-shape-2"></div>
 
     <!-- Barre de navigation -->
-    <header class="header">
-        <div class="header-content">
-            <a href="accueil.php" class="logo"><img src="image/PND.png" alt="Logo"></a>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Rechercher un billet ou événement">
-            </div>
-        </div>
-    </header>
+<?php
+    include 'navigation/header.php';
+?>
 
     <!-- Section des billets en revente -->
     <section class="events" id="events">
@@ -89,41 +73,9 @@ $conn->close();
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-nav">
-                <div class="footer-section">
-                    <h4>DÉCOUVRIR</h4>
-                    <ul>
-                        <li><a href="tous-les-events.php?filter=concert">Concerts</a></li>
-                        <li><a href="tous-les-events.php?filter=soiree">Soirées</a></li>
-                        <li><a href="tous-les-events.php?filter=festival">Festivals</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>AIDE</h4>
-                    <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>LÉGAL</h4>
-                    <ul>
-                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                        <li><a href="politique-cookie.php">Cookies</a></li>
-                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>© 2024 PartyNextDoor. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+    <?php
+    include 'navigation/footer.php';
+?>
 </body>
 </html>
 

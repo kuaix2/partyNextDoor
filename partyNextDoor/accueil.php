@@ -1,14 +1,6 @@
 <?php
 
-
-session_start();
-
-// Vérifier si l'utilisateur est connecté et rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
-    header("Location: connexion.php");
-    exit();
-}
-
+include 'php/user_conn_verif.php';
 include 'database/db_conn.php';
 
 // Récupérer la requête de recherche si présente
@@ -107,10 +99,10 @@ include 'navigation/header.php';
      <!-- Deuxième section -->
     <div class="section-2">
         <div class="container">
-            
-            <h1 class="large"><a href="tous-les-events.php" class="large">CONCERTS</a></h1>
-            <h2 class="medium"><a href="tous-les-events.php" class="medium">SOIRÉES</a></h2>
-            <h1 class="large"><a href="tous-les-events.php" class="large">FESTIVALS</a></h1>
+        
+            <h1 class="large"><a href="tous-les-events.php?filter=concert" class="filter-button <?php echo ($filterTag == 'concert' ? 'active' : ''); ?>">CONCERTS</a></h1>
+            <h2 class="medium"><a href="tous-les-events.php?filter=soiree" class="filter-button <?php echo ($filterTag == 'soiree' ? 'active' : ''); ?>">SOIRÉES</a></h2>
+            <h1 class="large"><a href="tous-les-events.php?filter=festival" class="filter-button <?php echo ($filterTag == 'festival' ? 'active' : ''); ?>">FESTIVALS</a></h1>
 
         </div>
     </div>

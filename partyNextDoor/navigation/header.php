@@ -13,9 +13,7 @@
                 <div class="menu-dropdown">
                     <a href="profil.php" class="menu-item">Mon profil</a>
                     <a href="dashboard.php" class="menu-item">Je suis organisateur</a>
-                    <a href="tous-les-events.php" class="menu-item">Festivals</a>
-                    <a href="tous-les-events.php" class="menu-item">Concerts</a>
-                    <a href="tous-les-events.php" class="menu-item">Soirées</a>
+                    <a href="revendre-billet.php" class="menu-item">Revendre billet</a>
                     <a href="tous-les-events.php" class="menu-item">Tous les évènements</a>
                     <a href="faq.html" class="menu-item">FAQ</a>
                     <a href="php/connexion_verif.php?logout=true" class="menu-item">Se déconnecter</a>
