@@ -4,20 +4,22 @@ body {
     box-sizing: border-box;
     font-family: 'Bebas Neue', sans-serif;
     background: linear-gradient(135deg, #ece9f2, #e9d4f2, #f5ccd5, #fcd7aa, #ff9e6a, #ff6f00);
-    background-attachment: fixed; /* Fixe le dégradé pour un effet continu */
-    background-size: cover; /* Assure que le dégradé couvre toute la page */
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 70px; /* Compense la barre de navigation */
 }
 
 .section {
-    height: 100vh;
+    min-height: 100vh; /* Chaque section occupe un écran entier */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 5vw;
-    background: transparent; /* Supprime tout fond de section */
+    background: transparent;
 }
 
-.container {
+.section .container {
+    margin-top: 20px; /* Décale légèrement le contenu dans la section */
     display: flex;
     flex-direction: column;
     line-height: 1;
@@ -74,11 +76,17 @@ h3 {
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
 }
 
 .events {
+    min-height: 100vh; /* Assure que la section occupe tout l'écran */
     padding: 80px 24px;
-    background: transparent; /* Supprime tout fond blanc */
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement les événements */
+    font-size: roboto;
 }
 
 .events-header {
@@ -99,11 +107,13 @@ h3 {
 }
 
 .event-card {
-    background: rgba(255, 255, 255, 0.8); /* Fond translucide pour un contraste lisible */
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .event-card:hover {
@@ -149,24 +159,25 @@ h3 {
 }
 
 .tag {
-    background: rgba(245, 245, 245, 0.8); /* Translucide pour s'intégrer au fond */
+    background: rgba(175, 175, 175, 0.8);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
-    color: #666;
+    color: #595959;
 }
 
 .section-2 {
-    height: 100vh;
+    min-height: 100vh; /* Assure que la section occupe tout l'écran */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: transparent; /* Supprime tout fond différent */
+    background: transparent;
 }
 
 .section-2 .container {
+    margin-top: 20px; /* Décale légèrement le contenu dans la section */
     text-align: center;
 }
 
@@ -203,30 +214,30 @@ h3 {
 }
 
 .section-3 {
+    min-height: 100vh; /* Assure que la section occupe tout l'écran */
     margin: 0;
-    font-family: Arial, sans-serif;
-    height: 100vh;
+    font-family: 'Bebas Neue', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: rgb(0, 0, 0);
-    background: transparent; /* Supprime tout fond différent */
+    background: transparent;
 }
 
 .section-3 h1 {
-    font-size: 40px;
+    font-size: 70px;
     font-weight: bold;
     white-space: nowrap;
 }
 
 .section-3 h5 {
     margin: 0;
-    font-size: 25px;
+    font-size: 50px;
     color: #000000;
     text-align: center;
-    max-width: 900px;
-    margin: 20px auto;
+    max-width: 0px;
+    margin: 40px auto;
 }
 
 .section-3 .button {
@@ -241,10 +252,12 @@ h3 {
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .section-3 .button:hover {
-    background-color: #efc1ff;
+    background-color: #fcd7aa;
 }
 
 a {
@@ -256,7 +269,7 @@ footer {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #000;
-    background: transparent; /* Supprime tout fond différent */
+    background: transparent;
 }
 
 .copyright-text {
@@ -265,4 +278,39 @@ footer {
     text-align: center;
     margin: 0;
     padding: 10px 0;
+}
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-see-more {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Texte blanc */
+    background-color: #000; /* Fond noir */
+    border: none;
+    border-radius: 25px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.btn-see-more:hover {
+    background-color: #fff; /* Fond blanc */
+    color: #000; /* Texte noir */
+    border: 2px solid #000;
 }

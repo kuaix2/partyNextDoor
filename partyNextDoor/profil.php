@@ -13,7 +13,7 @@ $userId = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur depuis la s
 $host = 'localhost'; // Remplacez par votre hôte
 $dbname = 'bddpartynextdoor'; // Remplacez par le nom de votre base de données
 $username = 'root'; // Remplacez par votre nom d'utilisateur
-$password = ''; // Remplacez par votre mot de passe
+$password = 'root'; // Remplacez par votre mot de passe
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
