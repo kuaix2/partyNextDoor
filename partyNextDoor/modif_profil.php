@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Connexion à la base de données
 $host = 'localhost';
 $dbname = 'bddpartynextdoor';
@@ -17,7 +17,7 @@ session_start();
 $userId = $_SESSION['user_id'] ?? 1; // Remplacez par la gestion de session appropriée
 
 // Récupérer les informations actuelles de l'utilisateur
-$sql = "SELECT nom_utilisateur, email, mot_de_passe, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
+$sql = "SELECT nom_utilisateur, email, mot_de_passe, nom_de_famille, prenom, bio, photo_profil FROM utilisateur WHERE id = :userId";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
@@ -29,6 +29,20 @@ if (!$user) {
 
 // Mettre à jour les informations si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Gestion de l'upload de la photo
+    $photoProfil = $user['photo_profil']; // Chemin actuel
+
+    if (isset($_FILES['photo_profil']) && $_FILES['photo_profil']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = 'uploads/';
+        $uploadFile = $uploadDir . basename($_FILES['photo_profil']['name']);
+        if (move_uploaded_file($_FILES['photo_profil']['tmp_name'], $uploadFile)) {
+            $photoProfil = $uploadFile;
+        } else {
+            echo "Erreur lors de l'upload de la photo.";
+        }
+    }
+
+    // Récupérer et mettre à jour les autres informations
     $nom_utilisateur = $_POST['nom_utilisateur'];
     $email = $_POST['email'];
     $mot_de_passe = $_POST['mot_de_passe'];
@@ -36,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom = $_POST['prenom'];
     $bio = $_POST['bio'];
 
-    $sqlUpdate = "UPDATE utilisateur SET nom_utilisateur = :nom_utilisateur, email = :email, mot_de_passe = :mot_de_passe, nom_de_famille = :nom_de_famille, prenom = :prenom, bio = :bio WHERE id = :userId";
+    $sqlUpdate = "UPDATE utilisateur SET nom_utilisateur = :nom_utilisateur, email = :email, mot_de_passe = :mot_de_passe, nom_de_famille = :nom_de_famille, prenom = :prenom, bio = :bio, photo_profil = :photo_profil WHERE id = :userId";
     $stmtUpdate = $pdo->prepare($sqlUpdate);
     $stmtUpdate->bindParam(':nom_utilisateur', $nom_utilisateur, PDO::PARAM_STR);
     $stmtUpdate->bindParam(':email', $email, PDO::PARAM_STR);
@@ -44,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmtUpdate->bindParam(':nom_de_famille', $nom_de_famille, PDO::PARAM_STR);
     $stmtUpdate->bindParam(':prenom', $prenom, PDO::PARAM_STR);
     $stmtUpdate->bindParam(':bio', $bio, PDO::PARAM_STR);
+    $stmtUpdate->bindParam(':photo_profil', $photoProfil, PDO::PARAM_STR);
     $stmtUpdate->bindParam(':userId', $userId, PDO::PARAM_INT);
 
     if ($stmtUpdate->execute()) {
@@ -65,16 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="profile-container">
-        <h1>Mon Profil</h1>
+        <h1>Modifier le Profil</h1>
         <div class="profile-section">
             <!-- Photo de profil -->
-            <div class="profile-picture">
-                <img src="image/download.jpg" alt="Photo de profil" id="profile-img">
-                <input type="file" id="change-photo" accept="image/*">
-            </div>
+            <form action="" method="POST" class="profile-form" enctype="multipart/form-data">
+                <div class="profile-picture">
+                    <img src="<?= htmlspecialchars($user['photo_profil'] ?: 'image/default.jpg') ?>" alt="Photo de profil" id="profile-img">
+                    <input type="file" name="photo_profil" id="change-photo" accept="image/*">
+                </div>
 
-            <!-- Informations utilisateur -->
-            <form action="" method="POST" class="profile-form">
+                <!-- Informations utilisateur -->
                 <label for="nom_utilisateur">Nom d'utilisateur</label>
                 <input type="text" id="nom_utilisateur" name="nom_utilisateur" value="<?= htmlspecialchars($user['nom_utilisateur']) ?>" required>
 
@@ -98,18 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <!-- Rubriques supplémentaires -->
-        <div class="profile-options">
-            <button class="option-button">Mes billets</button>
-            <button class="option-button">Favoris</button>
-        </div>
+        
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
-

@@ -96,11 +96,7 @@ h1 {
     background-color: #f48fb1; /* Variation rose au survol */
 }
 
-.profile-options {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .option-button {
     padding: 10px 20px;
