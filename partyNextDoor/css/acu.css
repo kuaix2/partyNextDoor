@@ -216,6 +216,7 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     border: 1px solid #eee;
+
 }
 
 .event-card:hover {
@@ -238,6 +239,8 @@ body {
     font-weight: 600;
     margin-bottom: 12px;
     color: #000;
+    text-decoration: none;
+
 }
 
 .event-venue {
@@ -258,6 +261,8 @@ body {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    text-decoration: none;
+
 }
 
 .tag {
@@ -267,6 +272,8 @@ body {
     font-size: 12px;
     font-weight: 500;
     color: #666;
+    text-decoration: none;
+
 }
 
 .footer {
@@ -342,3 +349,9 @@ body {
         display: none;
     }
 }
+
+.events-grid .event-card .event-title a {
+    text-decoration: none !important; /* Forçage */
+    color: inherit !important;
+}
+

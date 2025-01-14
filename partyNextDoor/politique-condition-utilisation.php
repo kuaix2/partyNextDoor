@@ -42,6 +42,7 @@ if (empty($content)) {
 
     <link rel="stylesheet" href="css/mentions-legales.css">
     <link rel="stylesheet" href="css/footer.css">
+
 </head>
 <body>
     <header class="header">
