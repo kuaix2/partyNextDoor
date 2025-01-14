@@ -1,4 +1,4 @@
- * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -89,7 +89,7 @@ body {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none; /* Supprime le soulignement */
     transition: all 0.2s ease;
 }
 
@@ -105,7 +105,10 @@ body {
     background: transparent;
 }
 
-
+a {
+    text-decoration: none; /* Supprime le soulignement pour tous les liens */
+    color: inherit; /* Les liens héritent de la couleur du parent */
+}
 
 .events {
     padding: 80px 24px;
@@ -222,8 +225,7 @@ body {
 }
 
 .footer-section ul a {
-    color: #666;
-    text-decoration: none;
+    text-decoration: none; /* Supprime le soulignement */
     transition: color 0.2s;
     font-size: 14px;
 }
@@ -244,8 +246,10 @@ body {
 .filter-buttons {
     display: flex;
     justify-content: center;
+    margin-top: 80px; /* Ajoute de l'espace sous la navbar */
     margin-bottom: 20px;
 }
+
 .filter-button {
     background-color: #333;
     color: white;
@@ -253,9 +257,11 @@ body {
     padding: 10px 20px;
     margin: 0 10px;
     cursor: pointer;
+    text-decoration: none; /* Supprime le soulignement */
     transition: background-color 0.3s;
     border-radius: 30px;
 }
+
 .filter-button:hover, .filter-button.active {
     background-color: #555;
 }

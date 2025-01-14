@@ -12,6 +12,28 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Récupérer l'ID de l'événement depuis le formulaire ou l'URL
+$event_id = isset($_POST['event_id']) ? intval($_POST['event_id']) : (isset($_GET['event_id']) ? intval($_GET['event_id']) : 0);
+
+if ($event_id > 0) {
+    // Requête pour récupérer les informations de l'événement
+    $sql = "SELECT * FROM events WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $event_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $event = $result->fetch_assoc();
+    } else {
+        die("Événement introuvable.");
+    }
+
+    $stmt->close();
+} else {
+    die("Aucun ID d'événement fourni.");
+}
+
 // Vérifiez si l'utilisateur est connecté
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -19,55 +41,49 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = $_SESSION['user_id']; // ID de l'utilisateur connecté
+$user_id = $_SESSION['user_id']; // Récupérer l'ID utilisateur depuis la session
 
-// Récupérer l'ID de la revente
-$revente_id = isset($_GET['revente_id']) ? intval($_GET['revente_id']) : 0;
-
-if ($revente_id > 0) {
-    // Vérifier que le billet est disponible à la revente
-    $sql = "
-        SELECT rt.ticket_id, rt.price, e.event_name, e.event_date
-        FROM revente_tickets rt
-        JOIN tickets t ON rt.ticket_id = t.id
-        JOIN events e ON t.event_id = e.id
-        WHERE rt.id = ? AND rt.status = 'en_vente'";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $revente_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $billet = $result->fetch_assoc();
-    } else {
-        die("Billet non disponible.");
-    }
-    $stmt->close();
-} else {
-    die("Aucun billet sélectionné.");
-}
-
-// Traitement de la confirmation d'achat
+// Traitement du paiement
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['confirm_payment'])) {
     $conn->begin_transaction();
 
     try {
-        // Mettre à jour l'utilisateur associé au billet
-        $stmt = $conn->prepare("UPDATE tickets SET user_id = ? WHERE id = ?");
-        $stmt->bind_param("ii", $user_id, $billet['ticket_id']);
+        // Vérifier les places disponibles
+        $stmt = $conn->prepare("SELECT places_available FROM events WHERE id = ? FOR UPDATE");
+        $stmt->bind_param("i", $event_id);
         $stmt->execute();
+        $result = $stmt->get_result();
 
-        // Supprimer l'entrée de revente
-        $stmt = $conn->prepare("DELETE FROM revente_tickets WHERE id = ?");
-        $stmt->bind_param("i", $revente_id);
-        $stmt->execute();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
 
-        // Valider la transaction
-        $conn->commit();
+            if ($row['places_available'] > 0) {
+                $new_places = $row['places_available'] - 1;
 
-        echo "<script>alert('Achat réussi !');</script>";
-        header("Location: confirmation-paiement.php");
-        exit();
+                // Mettre à jour les places disponibles
+                $stmt = $conn->prepare("UPDATE events SET places_available = ? WHERE id = ?");
+                $stmt->bind_param("ii", $new_places, $event_id);
+                $stmt->execute();
+
+                // Insérer le billet dans la table tickets
+                $stmt = $conn->prepare("INSERT INTO tickets (user_id, event_id, price) VALUES (?, ?, ?)");
+                $stmt->bind_param("iid", $user_id, $event_id, $event['event_price']);
+                $stmt->execute();
+
+                $ticket_id = $conn->insert_id;
+
+                // Valider la transaction
+                $conn->commit();
+
+                // Rediriger vers la page de confirmation
+                header("Location: confirmation-paiement.php?ticket_id=$ticket_id");
+                exit();
+            } else {
+                throw new Exception("Désolé, il n'y a plus de places disponibles pour cet événement.");
+            }
+        } else {
+            throw new Exception("Événement introuvable.");
+        }
     } catch (Exception $e) {
         $conn->rollback();
         die("Erreur : " . $e->getMessage());
@@ -82,16 +98,45 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/paiement.css">
     <title>Paiement</title>
 </head>
 <body>
-    <h1>Paiement pour l'événement : <?php echo htmlspecialchars($billet['event_name']); ?></h1>
-    <p>Date : <?php echo htmlspecialchars($billet['event_date']); ?></p>
-    <p>Prix : <?php echo number_format($billet['price'], 2, ',', ''); ?> €</p>
+    <div class="main-container">
+        <div class="payment-info">
+    <h1>Paiement pour l'événement : <?php echo htmlspecialchars($event['event_name']); ?></h1>
+    <p>Date : <?php echo htmlspecialchars($event['event_date']); ?></p>
+    <p>Prix : <?php echo number_format($event['event_price'], 2, ',', ''); ?> €</p>
+    <p>Places disponibles : <?php echo htmlspecialchars($event['places_available']); ?></p>
+    </div>
+    <form action="paiement.php" method="post">
+    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+    <div class="payment-fields-container">
+<div class="form-group">
+        <label>Numéro de Carte</label>
+        <input type="text" name="numero_carte"  placeholder="Numéro de carte"required>
+    </div>
 
-    <form action="paiement.php?revente_id=<?php echo $revente_id; ?>" method="post">
-        <button type="submit" name="confirm_payment">Confirmer l'achat</button>
-        <a href="billets-revente.php">Annuler</a>
+    <div class="form-group">
+        <label>Date de fin de validité (MM/AA)</label>
+        <input type="text" name="date_fin_validite"  placeholder="MM/AA"required>
+    </div>
+
+    <div class="form-group">
+        <label>Cryptogramme visuel</label>
+        <input type="text" name="cryptogramme_visuel"  placeholder="Cryptographie(CVV/CVC)"required>
+    </div>
+    </div>
+
+
+    
+</form>
+
+    <form action="paiement.php" method="post">
+        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+        <button type="submit" name="confirm_payment">Valider le paiement</button>
+        <a href="fiche-evenement.php?id=<?php echo $event_id; ?>">Annuler</a>
     </form>
+    </div>
 </body>
 </html>

@@ -13,7 +13,7 @@ $userId = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur depuis la s
 $host = 'localhost'; // Remplacez par votre hôte
 $dbname = 'bddpartynextdoor'; // Remplacez par le nom de votre base de données
 $username = 'root'; // Remplacez par votre nom d'utilisateur
-$password = ''; // Remplacez par votre mot de passe
+$password = 'root'; // Remplacez par votre mot de passe
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -23,7 +23,7 @@ try {
 }
 
 // Requête pour récupérer les informations de l'utilisateur
-$sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio FROM utilisateur WHERE id = :userId";
+$sql = "SELECT nom_utilisateur, email, nom_de_famille, prenom, bio, photo_profil FROM utilisateur WHERE id = :userId";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
@@ -95,7 +95,8 @@ include 'navigation/header.php';
     <main class="main-content">
         <section class="profile-section card">
             <h2>MON PROFIL</h2>
-            <img src="image/mam.jpg" alt="Photo de profil" class="profile-photo">
+            <img src="<?php echo htmlspecialchars($user['photo_profil'] ?: 'image/default.jpg'); ?>" alt="Photo de profil" class="profile-photo">
+
             <div class="profile-info">
                 <div class="info-group">
                     <label>NOM D'UTILISATEUR</label>
@@ -172,7 +173,8 @@ include 'navigation/header.php';
     <button class="close-button" onclick="toggleSettings()">×</button>
     
     <div class="user-profile">
-        <img src="image/mam.jpg" alt="Photo de profil">
+    <img src="<?php echo htmlspecialchars($user['photo_profil'] ?: 'image/default.jpg'); ?>" alt="Photo de profil" class="profile-photo">
+
         <span><?php echo htmlspecialchars($user['nom_utilisateur']); ?></span> <!-- Nom d'utilisateur ajouté ici -->
     </div>
 
