@@ -66,6 +66,23 @@
                 <p>Assurez-vous que votre carte est autorisée pour les paiements en ligne et qu’elle n’a pas atteint sa limite. Si le problème persiste, contactez votre banque ou notre support client.</p>
             </div>
         </div>
+        <div class="question-section">
+            <h2>Posez votre question</h2>
+            <form action="send_question.php" method="POST" class="question-form">
+                <div class="form-group">
+                    <label for="email">Votre adresse e-mail :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="question">Votre question :</label>
+                    <textarea id="question" name="question" placeholder="Posez votre question ici..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        
     </section>
 
     <!-- Footer -->
@@ -116,3 +133,4 @@
     </script>
 </body>
 </html>
+
