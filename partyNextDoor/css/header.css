@@ -63,8 +63,8 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background: rgba(172, 172, 172, 0.221);
-    backdrop-filter: blur(15px);
+    background: rgba(236, 235, 235, 0.712);
+    backdrop-filter: blur(90px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     display: none;
