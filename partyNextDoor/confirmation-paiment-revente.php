@@ -21,47 +21,9 @@ if ($ticket_id <= 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/confirmation-paiment-revente.css">
     <title>Confirmation de Paiement</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .confirmation-container {
-            max-width: 500px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .confirmation-container h1 {
-            color: #28a745;
-            font-size: 24px;
-        }
-        .confirmation-container p {
-            font-size: 16px;
-            margin: 10px 0 20px;
-        }
-        .confirmation-container a {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .confirmation-container a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+        
 </head>
 <body>
     <div class="confirmation-container">
