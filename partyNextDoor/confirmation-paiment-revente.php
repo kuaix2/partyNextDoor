@@ -29,7 +29,6 @@ if ($ticket_id <= 0) {
     <div class="confirmation-container">
         <h1>Paiement confirmé !</h1>
         <p>Votre paiement pour le billet ID <?php echo htmlspecialchars($ticket_id); ?> a été validé avec succès.</p>
-        <p>Vous recevrez un email avec tous les détails de votre achat.</p>
         <a href="billets-revente.php">Retourner à la page des billets</a>
     </div>
 </body>
