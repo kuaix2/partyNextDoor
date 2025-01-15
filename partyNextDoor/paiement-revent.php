@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['confirm_payment'])) {
         $conn->commit();
 
         // Redirection vers une page de confirmation
-        header("Location: ./confirmation-paiement2.php?ticket_id=" . $revente['ticket_id']);
+        header("Location: ./confirmation-paiment-revente.php?ticket_id=" . $revente['ticket_id']);
         exit();
     } catch (Exception $e) {
         // Annuler la transaction en cas d'erreur
