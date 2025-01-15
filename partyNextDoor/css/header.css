@@ -63,13 +63,18 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #fff;
+    background: rgba(172, 172, 172, 0.221);
+    backdrop-filter: blur(15px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     display: none;
     flex-direction: column;
-    width: 200px;
+    width: 300px;
     z-index: 200;
+    text-align: center;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
 }
 
 .menu-burger:hover .menu-dropdown {
@@ -77,7 +82,7 @@
 }
 
 .menu-item {
-    padding: 10px 20px;
+    padding: 0.9rem;
     font-size: 14px;
     text-decoration: none;
     color: #000;
