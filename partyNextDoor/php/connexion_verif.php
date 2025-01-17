@@ -4,7 +4,7 @@ session_start(); // Démarre la session ici, avant tout code
 // Informations de connexion à la base de données
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "bddpartynextdoor";
 
 // Connexion à la base de données
@@ -68,11 +68,6 @@ if (isset($_GET['logout'])) {
     exit();
 }
 
-// Vérifier le statut de connexion
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header("Location: admin_page.php");
-    exit();
-}
 
 // Si un message d'erreur est défini, le passer dans l'URL
 if ($message) {
