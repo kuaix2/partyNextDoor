@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="css/faq.css">
     <link rel="stylesheet" href="css/footer.css">
 </head>
-
-
 <body>
     <header>
         <h1>PartyNextDoor - FAQ</h1>
         <p>Trouvez vos soirées et achetez ou revendez vos billets en toute simplicité !</p>
     </header>
-    
+
     <section class="faq">
         <h2>Questions Fréquentes</h2>
         
+        <!-- Questions fréquentes avec leurs réponses -->
         <div class="faq-item">
             <button class="faq-question">Comment acheter un billet sur PartyNextDoor ?</button>
             <div class="faq-answer">
@@ -66,9 +65,11 @@
                 <p>Assurez-vous que votre carte est autorisée pour les paiements en ligne et qu’elle n’a pas atteint sa limite. Si le problème persiste, contactez votre banque ou notre support client.</p>
             </div>
         </div>
+
+        <!-- Formulaire pour poser une question -->
         <div class="question-section">
             <h2>Posez votre question</h2>
-            <form action="send_question.php" method="POST" class="question-form">
+            <form id="questionForm">
                 <div class="form-group">
                     <label for="email">Votre adresse e-mail :</label>
                     <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required>
@@ -81,49 +82,44 @@
                     <button type="submit">Envoyer</button>
                 </div>
             </form>
+            <div id="responseMessage" style="margin-top: 20px; font-size: 1.1em; color: green;"></div>
         </div>
-        
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-nav">
-    
-                <div class="footer-section">
-                    <h4>DÉCOUVRIR</h4>
-                    <ul>
-                        <li><a href="tous-les-events.php">Concerts</a></li>
-                        <li><a href="tous-les-events.php">Soirées</a></li>
-                        <li><a href="tous-les-events.php">Festivals</a></li>
-                    </ul>
-                </div>
-    
-                <div class="footer-section">
-                    <h4>AIDE</h4>
-                    <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                    </ul>
-                </div>
-    
-                <div class="footer-section">
-                    <h4>LÉGAL</h4>
-                    <ul>
-                        <li><a href="politique-condition-utilisation.php">Conditions d'utilisation</a></li>
-                        <li><a href="politique-confidentialite.php">Politique de confidentialité</a></li>
-                        <li><a href="politique-cookie.php">Cookies</a></li>
-                        <li><a href="politique-mentions-legales.php">Mentions légales</a></li>
-                    </ul>
-                </div>
-            </div>
-    
-            <div class="copyright">
-                <p>©️ 2024 PartyNextDoor. Tous droits réservés.</p>
-            </div>
+            <p>©️ 2024 PartyNextDoor. Tous droits réservés.</p>
         </div>
     </footer>
-    
+
     <script>
+        // Intercepter la soumission du formulaire
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêche la redirection de la page
+
+            const formData = new FormData(this); // Récupérer les données du formulaire
+
+            // Envoyer les données au fichier PHP
+            fetch('php/faq.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Afficher le message de confirmation ou d'erreur
+                document.getElementById('responseMessage').innerText = data;
+
+                // Réinitialiser le formulaire
+                this.reset();
+            })
+            .catch(error => {
+                // Afficher un message d'erreur en cas de problème
+                document.getElementById('responseMessage').innerText = 'Une erreur est survenue. Veuillez réessayer.';
+                document.getElementById('responseMessage').style.color = 'red';
+            });
+        });
+
+        // Gestion des FAQ : afficher/masquer les réponses
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
