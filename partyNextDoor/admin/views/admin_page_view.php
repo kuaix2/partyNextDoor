@@ -19,6 +19,7 @@ class AdminPageView {
         <a href="politique-editeur.php" class="editor-btn">Accéder à l'éditeur de politique</a>
         <a href="supprimer-utilisateurs.php" class="editor-btn">Supprimer des utilisateurs</a>
         <a href="supprimer-event.php" class="editor-btn">Supprimer les evenements</a>
+        <a href="question.php" class="editor-btn">Question des utilisateurs</a>
          
         <a href="admin_login.php?logout=true" class="logout-btn">Se déconnecter</a>
     </div>
