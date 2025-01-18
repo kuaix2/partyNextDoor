@@ -13,7 +13,7 @@ $conn = new mysqli(
 );
 
 if ($conn->connect_error) {
-    die("Échec de la connexion : " . $conn->connect_error);
+    die("\u00c9chec de la connexion : " . $conn->connect_error);
 }
 
 
@@ -114,12 +114,32 @@ $conn->close();
             word-wrap: break-word;
         }
 
+        .copy-icon {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #4CAF50;
+            font-size: 1.2em;
+        }
+
+        .copy-icon:hover {
+            color: #2e7d32;
+        }
+
         p {
             text-align: center;
             font-size: 1.2em;
             color: #333;
         }
     </style>
+    <script>
+        function copyToClipboard(email) {
+            navigator.clipboard.writeText(email).then(() => {
+                alert(`L'email \"${email}\" a été copié dans le presse-papier.`);
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -144,7 +164,10 @@ $conn->close();
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['id']); ?></td>
-                            <td><?php echo htmlspecialchars($row['user_email']); ?></td>
+                            <td>
+                                <?php echo htmlspecialchars($row['user_email']); ?>
+                                <span class="copy-icon" onclick="copyToClipboard('<?php echo htmlspecialchars($row['user_email']); ?>')">&#x1F4CB;</span>
+                            </td>
                             <td><?php echo htmlspecialchars($row['message']); ?></td>
                             <td><?php echo date('d/m/Y H:i', strtotime($row['created_at'])); ?></td>
                         </tr>

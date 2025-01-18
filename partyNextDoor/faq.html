@@ -93,39 +93,31 @@
     </footer>
 
     <script>
-        // Intercepter la soumission du formulaire
-        document.getElementById('questionForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche la redirection de la page
+document.getElementById('questionForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Empêche la redirection de la page
 
-            const formData = new FormData(this); // Récupérer les données du formulaire
+    const formData = new FormData(this); // Récupérer les données du formulaire
 
-            // Envoyer les données au fichier PHP
-            fetch('php/faq.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Afficher le message de confirmation ou d'erreur
-                document.getElementById('responseMessage').innerText = data;
+    fetch('php/faq.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log("Réponse PHP :", data); // Affiche la réponse dans la console
+        if (data.includes("succès")) {
+            alert("Votre question a bien été envoyée !");
+        } else {
+            alert("Une erreur est survenue lors de l'envoi de votre question. Veuillez réessayer.");
+        }
+    })
+    .catch(error => {
+        console.error("Erreur réseau :", error);
+        alert("Une erreur est survenue. Veuillez réessayer.");
+    });
+});
 
-                // Réinitialiser le formulaire
-                this.reset();
-            })
-            .catch(error => {
-                // Afficher un message d'erreur en cas de problème
-                document.getElementById('responseMessage').innerText = 'Une erreur est survenue. Veuillez réessayer.';
-                document.getElementById('responseMessage').style.color = 'red';
-            });
-        });
-
-        // Gestion des FAQ : afficher/masquer les réponses
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            });
-        });
     </script>
+    
 </body>
 </html>
