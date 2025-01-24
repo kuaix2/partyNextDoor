@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - PartyNextDoor</title>
+    <link rel="stylesheet" href="css/faq.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+    <header>
+        <h1>PartyNextDoor - FAQ</h1>
+        <p>Trouvez vos soirées et achetez ou revendez vos billets en toute simplicité !</p>
+    </header>
+
+    <section class="faq">
+        <h2>Questions Fréquentes</h2>
+        
+        
+        <div class="faq-item">
+            <button class="faq-question">Comment acheter un billet sur PartyNextDoor ?</button>
+            <div class="faq-answer">
+                <p>Pour acheter un billet, parcourez notre catalogue de soirées, choisissez l'événement qui vous intéresse, et cliquez sur "Acheter un billet". Vous serez redirigé vers une page sécurisée pour effectuer votre paiement.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Puis-je revendre mon billet si je ne peux plus assister à la soirée ?</button>
+            <div class="faq-answer">
+                <p>Oui, si vous ne pouvez plus assister à un événement, vous pouvez revendre votre billet en vous connectant à votre compte et en accédant à la section "Mes billets". Cliquez sur "Revendre" et suivez les instructions.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Est-il sûr d'acheter des billets sur PartyNextDoor ?</button>
+            <div class="faq-answer">
+                <p>Absolument ! Nous utilisons des méthodes de paiement sécurisées pour garantir la sécurité de vos informations. De plus, chaque billet vendu sur notre plateforme est vérifié pour assurer sa validité.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Comment annuler un achat de billet ?</button>
+            <div class="faq-answer">
+                <p>Une fois l'achat confirmé, les billets ne sont pas remboursables. Cependant, vous pouvez toujours revendre votre billet sur notre plateforme si vous ne pouvez pas assister à l'événement.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Puis-je transférer mon billet à un ami ?</button>
+            <div class="faq-answer">
+                <p>Oui, vous pouvez transférer votre billet en fournissant l'email de votre ami dans la section "Transférer un billet" de votre compte. Notez que les billets ne peuvent être transférés qu'une seule fois.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Je n’arrive pas à me connecter à mon compte. Pouvez-vous m’aider ?</button>
+            <div class="faq-answer">
+                <p>Si vous rencontrez des difficultés pour vous connecter, vérifiez que vos identifiants sont corrects. Sinon, utilisez l'option "Mot de passe oublié" pour réinitialiser votre mot de passe.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Mon paiement a été refusé alors que ma carte est valide. Que faire ?</button>
+            <div class="faq-answer">
+                <p>Assurez-vous que votre carte est autorisée pour les paiements en ligne et qu’elle n’a pas atteint sa limite. Si le problème persiste, contactez votre banque ou notre support client.</p>
+            </div>
+        </div>
+
+       
+        <div class="question-section">
+            <h2>Posez votre question</h2>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label for="email">Votre adresse e-mail :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="question">Votre question :</label>
+                    <textarea id="question" name="question" placeholder="Posez votre question ici..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Envoyer</button>
+                </div>
+            </form>
+            <div id="responseMessage" style="margin-top: 20px; font-size: 1.1em; color: green;"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>©️ 2024 PartyNextDoor. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+        
+document.getElementById('questionForm').addEventListener('submit', function (e) {
+    e.preventDefault(); 
+    const formData = new FormData(this); 
+
+    fetch('php/faq.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log("Réponse PHP :", data); 
+        if (data.includes("succès")) {
+            alert("Votre question a bien été envoyée !");
+        } else {
+            alert("Une erreur est survenue lors de l'envoi de votre question. Veuillez réessayer.");
+        }
+    })
+    .catch(error => {
+        console.error("Erreur réseau :", error);
+        alert("Une erreur est survenue. Veuillez réessayer.");
+    });
+});
+
+    </script>
+    
+</body>
+</html>
