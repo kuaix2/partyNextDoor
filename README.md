@@ -21,7 +21,9 @@ This is an academic project for ISEP in 2024-2025, done by a group of 6 students
   - SQL
  
 - **Notes**
-For further information, there are manuals and specifications to understand all functions of the website, along with instructions on how to deploy and use it. 
+Includes manuals and specifications to understand all functions of the website, along with instructions on how to deploy and use it. You can find the documents [here](https://drive.google.com/drive/folders/1l7Z5Pd0lmZIxM3jJAYtHerPnsHOwaJ6b?usp=sharing).
+
+
 
 ----------
 
