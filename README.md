@@ -2,6 +2,8 @@
 
 This is an academic project for ISEP in 2024-2025, done by a group of 6 students over 1 semester (approximately 5-6 months)
 
+https://github.com/user-attachments/assets/3dc3d761-bd02-46f4-9cf6-f2f1dece3fd6
+
 
 - **Project Overview**: A website that allows users to:
   - Browse through events and parties
